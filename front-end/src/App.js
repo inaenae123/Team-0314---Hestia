@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/home.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
+import "./App.css";
 
 class App extends Component {
   render() {
