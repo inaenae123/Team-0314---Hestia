@@ -29,8 +29,6 @@ app.get("/*", (req, res) => {
   res.sendFile('index.html', { root: "../front-end/build"});
  });
 
- app.get()
-
 //import routes
 const userRoutes = require("./routes/auth");
 
