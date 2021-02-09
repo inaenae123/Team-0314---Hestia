@@ -11,7 +11,7 @@ You'll then need to open the link yourself however http://localhost:3000/
 6. You'll then need to open the link yourself however http://localhost:3000/
 
 # Adding to the Database
-*Check your email for invitation to mongodb Atlas site\s\s
+*Check your email for invitation to mongodb Atlas site
 
 to add to the backend post with this url (localhost:3000/api/user/register)  in postman with this body (raw, json):
 {
