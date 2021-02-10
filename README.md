@@ -7,6 +7,7 @@ You'll then need to open the link yourself however http://localhost:3000/
 2. Run task "Install Backend" -- There should now be a Node_Modules folder in your backend file
 3. Run task "Install Frontend"-- There should now be a Node_Modules folder in your frontend file
 4. Run task "Build Frontend" -- This builds a prebuilt version of the front end html that the backend can use
+* NOTE: Any changes made to the frontend will require you to rerun the "Build Frontend" command in order for the backend to see it
 5. Run task "Start Backend" -- wait for the messages on the console log, three messages saying you've connected to port 3000, and the the database labra should show up
 6. You'll then need to open the link yourself however http://localhost:3000/
 
