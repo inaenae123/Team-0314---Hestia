@@ -4,6 +4,10 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv")
 const PORT = 3000;
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const users = require("./routes/users");
+
 // connect to db
 dotenv.config();
 
@@ -35,8 +39,18 @@ const userRoutes = require("./routes/auth");
 //middlewares
 app.use(express.json()); // for body parser
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
 //connects Mainsite and Database Labra
 app.use("/labra/user", userRoutes);
+
+
+// Routes
+app.use("/routes/users", users);
 
 //connects express() to our html site on port 3000
 app.listen(PORT, () => 
