@@ -34,7 +34,7 @@ app.get("/*", (req, res) => {
  });
 
 //import routes
-const userRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
 
 //middlewares
 app.use(express.json()); // for body parser
