@@ -46,11 +46,8 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 //connects Mainsite and Database Labra
-app.use("/labra/user", userRoutes);
+app.use("/api/users", userRoutes);
 
-
-// Routes
-app.use("/routes/users", users);
 
 //connects express() to our html site on port 3000
 app.listen(PORT, () => 
