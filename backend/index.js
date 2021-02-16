@@ -39,10 +39,10 @@ const userRoutes = require("./routes/users");
 app.use(express.json()); // for body parser
 
 // Passport middleware
-app.use(passport.initialize());
+//app.use(passport.initialize());
 
 // Passport config
-require("./config/passport")(passport);
+//require("./config/passport")(passport);
 
 //connects Mainsite and Database Labra
 app.use("/api", userRoutes);

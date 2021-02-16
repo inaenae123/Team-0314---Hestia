@@ -6,11 +6,46 @@ import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "./types";
+
+//get users
+export const getUser = (userData, history) => dispatch => {
+  axios
+  .get("/api/user", userData)
+    .then(res => {
+      // Save to localStorage
+// Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })// re-direct to login on successful register
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then(res => {
+      // Save to localStorage
+// Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })// re-direct to login on successful register
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

@@ -4,10 +4,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 // Load input validation
-const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 // Load User model
 const User = require("../model/User");
+
+
+router.get("/user", async (req, res) => {
+  console.log('hello world')
+});
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
@@ -22,6 +26,7 @@ router.post("/register", async (req, res) => {
     const savedUser = await user.save();
     res.json({ error: null, data: savedUser });
   } catch (error) {
+  
     res.status(400).json({ error });
   }
 });
