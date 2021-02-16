@@ -6,7 +6,6 @@ const dotenv = require("dotenv")
 const PORT = 3000;
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const users = require("./routes/users");
 
 // connect to db
 dotenv.config();
@@ -46,7 +45,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 //connects Mainsite and Database Labra
-app.use("/api/users", userRoutes);
+app.use("/api", userRoutes);
 
 
 //connects express() to our html site on port 3000
