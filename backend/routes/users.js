@@ -9,7 +9,7 @@ const validateLoginInput = require("../validation/login");
 const User = require("../model/User");
 
 
-router.get("/user", async (req, res) => {
+router.get("/api/user", async (req, res) => {
   console.log('hello world')
 });
 
