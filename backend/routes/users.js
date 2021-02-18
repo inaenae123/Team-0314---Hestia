@@ -18,7 +18,6 @@ router.get("/user", async (req, res) => {
         res.json(docs);
     });
     console.log("Returned data");
-  
 });
 
 // @route POST api/users/login
