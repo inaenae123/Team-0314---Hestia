@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -6,6 +5,7 @@ const dotenv = require("dotenv")
 const PORT = 3000;
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const router = express.Router();
 
 // connect to db
 dotenv.config();
@@ -28,9 +28,8 @@ mondb.once('open', function() {
 
 //Gets html from front end
 app.use(express.static( "../front-end/build"));
-app.get("/*", (req, res) => {
-  res.sendFile('index.html', { root: "../front-end/build"});
- });
+app.use(router);
+
 
 //import routes
 const userRoutes = require("./routes/users");
@@ -46,8 +45,6 @@ app.use(express.json()); // for body parser
 
 //connects Mainsite and Database Labra
 app.use("/api", userRoutes);
-
-
 //connects express() to our html site on port 3000
 app.listen(PORT, () => 
   console.log("Server is up and listening on Port: " + PORT)
