@@ -9,8 +9,16 @@ const validateLoginInput = require("../validation/login");
 const User = require("../model/User");
 
 
+
 router.get("/user", async (req, res) => {
-  console.log('hello world')
+  console.log("I received a GET request")
+    User.find({},function(err, docs){
+        console.log("Getting data from db");
+        console.log(docs);
+        res.json(docs);
+    });
+    console.log("Returned data");
+  
 });
 
 // @route POST api/users/login
