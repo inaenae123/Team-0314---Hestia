@@ -1,0 +1,37 @@
+{
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "backend/",
+            "problemMatcher": [],
+            "label": "npm: install - backend",
+            "detail": "install dependencies from package"
+        },
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "front-end/",
+            "problemMatcher": [],
+            "label": "npm: install - front-end",
+            "detail": "install dependencies from package"
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "path": "front-end/",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: build - front-end",
+            "detail": "node scripts/build.js"
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "path": "backend/",
+            "problemMatcher": [],
+            "label": "npm: start - backend",
+            "detail": "nodemon ./index"
+        }
+    ]
+}
