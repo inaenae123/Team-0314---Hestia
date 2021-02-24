@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Avatar from 'react-avatar';
-
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
-import classnames from "classnames";
+import AvatarEditor from 'react-avatar-editor'
 
 class UserProfile extends Component {
     constructor(props) {
@@ -26,8 +22,6 @@ class UserProfile extends Component {
     }
     
     render() {
-        // const { user } = this.props;
-        console.log(this.props);
         return (
             <div className="container" style={{paddingTop: "30px"}}>
                 <div className="row" style={{padding: "0px 20%"}}>
@@ -39,8 +33,64 @@ class UserProfile extends Component {
                             <h4>
                                 <b>User Profile</b> 
                             </h4>
-                            <Avatar size="50" round/>
-                            <button
+                        </div>
+                        <div className="col s12" style={{textAlign: "center", alignContent: "center"}}>
+                            <Avatar color={Avatar.getRandomColor('sitebase', ['red', 'green', 'blue'])} size="100" round/>
+                        </div>
+                        <form>
+                            <div className="input-field col s12">
+                                <input
+                                value={this.state.username}
+                                id="name"
+                                type="text"
+                                />
+                                <label htmlFor="name">Username</label>
+                            </div>
+                            <div className="input-field col s12">
+                                <label active htmlFor="about" style={{paddingBottom: "20px"}}>About Me</label>
+                                <input
+                                value={this.state.about}
+                                id="about"
+                                type="text"
+                                />
+                            </div>
+                            <h5>Contact Information</h5>
+                            <div className="input-field col s12">
+                                <input
+                                value={this.state.email}
+                                id="email"
+                                type="text"
+                                />
+                                <label htmlFor="email">Email</label>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                value={this.state.phone}
+                                id="phone"
+                                type="text"
+                                />
+                                <label htmlFor="phone">Phone Number</label>
+                            </div>
+                            <h5>Listing Information</h5>
+                            <div className="input-field col s12">
+                                <input
+                                value={this.state.roommates}
+                                id="roommates"
+                                type="number"
+                                />
+                                <label htmlFor="roommates">Number of Roommates</label>
+                            </div>
+
+                            <div className="input-field col s12">
+                                <input
+                                value={this.state.address}
+                                id="address"
+                                type="text"
+                                />
+                                <label htmlFor="address">Address</label>
+                            </div>
+                        </form>
+                        <button
                                 style={{
                                 width: "160px",
                                 borderRadius: "3px",
@@ -50,95 +100,6 @@ class UserProfile extends Component {
                             >
                                 Edit Profile
                             </button>
-                        </div>
-                        <form>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="text"
-                                />
-                                <label htmlFor="name">Username</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="text"
-                                />
-                                <label htmlFor="name">Email</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="text"
-                                />
-                                <label htmlFor="name">Phone Number</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="text"
-                                />
-                                <label htmlFor="name">About Me</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="number"
-                                />
-                                <label htmlFor="name">Number of Roommates</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <select value={this.state.value} onChange={this.handleChange}>
-                                    <option value="apartment">Apartment</option>
-                                    <option value="house">House</option>
-                                </select>
-                                <label htmlFor="name">Type of Residence</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="number"
-                                />
-                                <label htmlFor="name">Address</label>
-                            </div>
-                        </form>
-                        {/* <form> */}
-                            {/* <div className="input-field col s12">
-                                <input
-                                name="profileImage"
-                                type="file"
-                                />
-                                <label htmlFor="name">Profile Picture</label>
-                            </div>
-                            
-                            <div className="input-field col s12">
-                                <input
-                                id="email"
-                                type="email"
-                                />
-                                <label htmlFor="email">Email</label>
-                            </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                                <button
-                                style={{
-                                    width: "150px",
-                                    borderRadius: "3px",
-                                    letterSpacing: "1.5px",
-                                    marginTop: "1rem"
-                                }}
-                                type="submit"
-                                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                                >
-                                Create Profile
-                                </button> */}
-                            {/* </div> */}
-                        {/* </form> */}
                     </div>
                 </div>
             </div>
