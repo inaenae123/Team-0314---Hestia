@@ -7,8 +7,17 @@ import {
   USER_LOADING
 } from "./types";
 
-//get users
-
+//get Current User Data
+export const getUser = userData => dispatch => {
+  axios
+    .get('/userprofile', userData)
+        .then(res => {
+            //this.setState({users: res.data});
+            //console.log(this.state.users)
+            dispatch(res);
+            return res;
+        });
+}
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
@@ -55,6 +64,7 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {

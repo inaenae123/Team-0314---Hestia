@@ -20,7 +20,10 @@
             "type": "npm",
             "script": "build",
             "path": "front-end/",
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": [],
             "label": "npm: build - front-end",
             "detail": "node scripts/build.js"

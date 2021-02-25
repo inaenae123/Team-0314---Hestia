@@ -16,7 +16,6 @@ class Dashboard extends Component {
 
 render() {
     const { user } = this.props.auth;
-    console.log(this.props);
     return (
       <div style={{ paddingTop: "80px" }} className="container">
         <div className="row">

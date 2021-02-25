@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Avatar from 'react-avatar';
 import AvatarEditor from 'react-avatar-editor'
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getUser } from "../../actions/authActions";
 
 class UserProfile extends Component {
     constructor(props) {
@@ -14,7 +17,15 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/user')
+        const { user } = this.props.auth;
+        console.log(user);
+
+        axios.get('/api/userprofile', {
+            params : {
+                id: user.id,
+                name: user.name
+            }
+        })
         .then(res => {
             this.setState({users: res.data});
             console.log(this.state.users)
@@ -40,7 +51,7 @@ class UserProfile extends Component {
                         <form>
                             <div className="input-field col s12">
                                 <input
-                                value={this.state.username}
+                                value={this.state.name}
                                 id="name"
                                 type="text"
                                 />
@@ -112,4 +123,19 @@ class UserProfile extends Component {
 //     errors: state.errors
 // });
 
-export default UserProfile;
+UserProfile.propTypes = {
+    getUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+  });
+  
+  export default connect(
+    mapStateToProps,
+    {getUser}
+  )(UserProfile);
+
+// export default UserProfile;

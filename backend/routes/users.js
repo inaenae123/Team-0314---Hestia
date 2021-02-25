@@ -10,7 +10,7 @@ const User = require("../model/User");
 
 
 
-router.get("/user", async (req, res) => {
+router.get("/user", (req, res) => {
   console.log("I received a GET request")
     User.find({},function(err, docs){
         console.log("Getting data from db");
@@ -19,6 +19,29 @@ router.get("/user", async (req, res) => {
     });
     console.log("Returned data");
   
+});
+
+//Get request for fields in profile page
+router.get("/userprofile", (req, res) => {
+  console.log("I received a GET request")
+  //console.log(req);
+  let currentUser;
+  User.find({},function(err, docs){
+    console.log("Getting current user");
+    console.log(docs);
+    console.log(docs[0]);
+    console.log("BEGIN FOR LOOP");
+    console.log(req.query);
+    for(let r = 0; r < docs.length; r++) {
+      if(docs[r].id == req.query.id) {
+        currentUser = docs[r];
+        console.log(docs[r]);
+      }
+    }
+    console.log(currentUser);
+    res.json(currentUser);
+});
+  console.log("Returned user");
 });
 
 // @route POST api/users/login

@@ -4,6 +4,7 @@ import "./Auth.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import { setCurrentUser } from "../../actions/authActions";
 import classnames from "classnames";
 
 class Login extends Component {
@@ -47,8 +48,7 @@ onSubmit = e => {
     password: this.state.password
   };
 
-  this.props.loginUser(userData);
-
+  this.props.loginUser(userData)
 };
 
 render() {
@@ -128,6 +128,7 @@ render() {
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
+    setCurrentUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
   };
@@ -139,5 +140,5 @@ Login.propTypes = {
 
   export default connect(
     mapStateToProps,
-    { loginUser }
+    { loginUser, setCurrentUser }
   )(Login);
