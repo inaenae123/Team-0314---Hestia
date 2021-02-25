@@ -23,6 +23,7 @@ class UserProfile extends Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log(this.state)
+        alert('Profile has been updated!')
         // const newUser = {
         //     username: this.state.username,
         //     emailID: this.state.emailID
