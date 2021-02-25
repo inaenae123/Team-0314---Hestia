@@ -12,9 +12,20 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             isFetching: false,
-            users: []
+            user: []
         };
+        // this.handleChange = this.handleChange.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    // handleChange(event) {
+    //     this.setState({value: event.target.value});
+    // }
+    
+    // handleSubmit(event) {
+    //     alert('A name was submitted: ' + this.state.value);
+    //     event.preventDefault();
+    // }
 
     componentDidMount() {
         const { user } = this.props.auth;
@@ -27,8 +38,9 @@ class UserProfile extends Component {
             }
         })
         .then(res => {
-            this.setState({users: res.data});
-            console.log(this.state.users)
+            this.setState({user: res.data});
+            console.log(this.state.user)
+            console.log(this.state.user.name)
         });
     }
     
@@ -49,56 +61,71 @@ class UserProfile extends Component {
                             <Avatar color={Avatar.getRandomColor('sitebase', ['red', 'green', 'blue'])} size="100" round/>
                         </div>
                         <form>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.name}
-                                id="name"
-                                type="text"
-                                />
-                                <label htmlFor="name">Username</label>
+                            <div className="generalInfo col s12">
+                                <h5>General Information</h5>
+                                <div className="col s12">
+                                    <label htmlFor="name" className="col s12">
+                                    Name
+                                        <input
+                                        className="col s12"
+                                        value={this.state.user.name}
+                                        id="name"
+                                        type="text"
+                                        />
+                                    </label>
+                                </div>
+                                <div className="col s12">
+                                    <label htmlFor="about" className="col s12">
+                                        About Me
+                                        <input
+                                        value={this.state.about}
+                                        id="about"
+                                        type="text"
+                                        />
+                                    </label>
+                                </div>
                             </div>
-                            <div className="input-field col s12">
-                                <label active htmlFor="about" style={{paddingBottom: "20px"}}>About Me</label>
-                                <input
-                                value={this.state.about}
-                                id="about"
-                                type="text"
-                                />
+                            <div className="contactinfo col s12">
+                                <h5>Contact Information</h5>
+                                <div className="col s12">
+                                    <label htmlFor="email" className="col s12">Email
+                                        <input
+                                        value={this.state.user.email}
+                                        id="email"
+                                        type="text"
+                                        />
+                                    </label>
+                                </div>
+                                <div className="col s12">
+                                    <label htmlFor="phone" className="col s12">Phone Number
+                                        <input
+                                        value={this.state.phone}
+                                        id="phone"
+                                        type="text"
+                                        />
+                                    </label>
+                                </div>
                             </div>
-                            <h5>Contact Information</h5>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.email}
-                                id="email"
-                                type="text"
-                                />
-                                <label htmlFor="email">Email</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.phone}
-                                id="phone"
-                                type="text"
-                                />
-                                <label htmlFor="phone">Phone Number</label>
-                            </div>
-                            <h5>Listing Information</h5>
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.roommates}
-                                id="roommates"
-                                type="number"
-                                />
-                                <label htmlFor="roommates">Number of Roommates</label>
-                            </div>
-
-                            <div className="input-field col s12">
-                                <input
-                                value={this.state.address}
-                                id="address"
-                                type="text"
-                                />
-                                <label htmlFor="address">Address</label>
+                            <div className="listinginfo col s12">
+                                <h5>Listing Information</h5>
+                                <div className="col s12">
+                                    <label htmlFor="roommates" className="col s12">Number of Roommates
+                                        <input
+                                        value={this.state.roommates}
+                                        id="roommates"
+                                        type="number"
+                                        />
+                                    </label>
+                                </div>
+                                <div className="col s12">
+                                    <label htmlFor="address" className="col s12">Address
+                                        <input
+                                        value={this.state.address}
+                                        id="address"
+                                        type="text"
+                                        />
+                                    </label>
+                                </div>
                             </div>
                         </form>
                         <button
@@ -109,7 +136,7 @@ class UserProfile extends Component {
                                 }}
                                 className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                             >
-                                Edit Profile
+                                Update Profile
                             </button>
                     </div>
                 </div>
@@ -118,24 +145,17 @@ class UserProfile extends Component {
     }
 }
 
-// const mapStateToProps = state => ({
-//     auth: state.auth,
-//     errors: state.errors
-// });
-
 UserProfile.propTypes = {
     getUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
-  };
+};
   
-  const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
-  });
+const mapStateToProps = state => ({
+auth: state.auth,
+errors: state.errors
+});
   
-  export default connect(
-    mapStateToProps,
-    {getUser}
-  )(UserProfile);
-
-// export default UserProfile;
+export default connect(
+mapStateToProps,
+{getUser}
+)(UserProfile);
