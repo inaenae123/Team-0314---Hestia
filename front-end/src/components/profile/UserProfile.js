@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Avatar from 'react-avatar';
-import AvatarEditor from 'react-avatar-editor'
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUser } from "../../actions/authActions";
@@ -11,21 +10,31 @@ class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isFetching: false,
-            user: []
+            user: [],
+            about: '',
+            phone: '',
+            roommates: 0,
+            address: '',
+            email: ''
         };
-        // this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    // handleChange(event) {
-    //     this.setState({value: event.target.value});
-    // }
     
-    // handleSubmit(event) {
-    //     alert('A name was submitted: ' + this.state.value);
-    //     event.preventDefault();
-    // }
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log(this.state)
+        // const newUser = {
+        //     username: this.state.username,
+        //     emailID: this.state.emailID
+        // };
+    
+        // axios.post('http://localhost:8080/api/users', newUser)
+        //     .then(response => {           
+        //         this.setState({}) // get age, name and other data from response and set 
+        //                           //  the states here respectively 
+        //     })
+        //     .catch(error => error);            
+    }
 
     componentDidMount() {
         const { user } = this.props.auth;
@@ -68,9 +77,11 @@ class UserProfile extends Component {
                                     Name
                                         <input
                                         className="col s12"
-                                        value={this.state.user.name}
+                                        defaultValue={this.state.user.name}
                                         id="name"
+                                        name="name"
                                         type="text"
+                                        onChange={(e) => this.setState({name: e.target.value})}
                                         />
                                     </label>
                                 </div>
@@ -81,6 +92,7 @@ class UserProfile extends Component {
                                         value={this.state.about}
                                         id="about"
                                         type="text"
+                                        onChange={(e) => this.setState({about: e.target.value})}
                                         />
                                     </label>
                                 </div>
@@ -90,8 +102,10 @@ class UserProfile extends Component {
                                 <div className="col s12">
                                     <label htmlFor="email" className="col s12">Email
                                         <input
-                                        value={this.state.user.email}
+                                        defaultValue={this.state.user.email}
                                         id="email"
+                                        name="email"
+                                        onChange={(e) => this.setState({email: e.target.value})}
                                         type="text"
                                         />
                                     </label>
@@ -102,6 +116,7 @@ class UserProfile extends Component {
                                         value={this.state.phone}
                                         id="phone"
                                         type="text"
+                                        onChange={(e) => this.setState({phone: e.target.value})}
                                         />
                                     </label>
                                 </div>
@@ -114,6 +129,7 @@ class UserProfile extends Component {
                                         value={this.state.roommates}
                                         id="roommates"
                                         type="number"
+                                        onChange={(e) => this.setState({roommates: e.target.value})}
                                         />
                                     </label>
                                 </div>
@@ -123,6 +139,7 @@ class UserProfile extends Component {
                                         value={this.state.address}
                                         id="address"
                                         type="text"
+                                        onChange={(e) => this.setState({address: e.target.value})}
                                         />
                                     </label>
                                 </div>
@@ -134,6 +151,9 @@ class UserProfile extends Component {
                                 borderRadius: "3px",
                                 margin: "10px 10px 0px 0px"
                                 }}
+                                value='Submit'
+                                type='submit'
+                                onClick={this.handleSubmit}
                                 className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                             >
                                 Update Profile
