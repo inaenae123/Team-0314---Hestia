@@ -65,7 +65,7 @@ render() {
                   Go to Profiles
                 </Link>
                 <Link
-                  to="/listings"
+                  to="/rooms"
                   style={{
                     width: "160px",
                     borderRadius: "3px",

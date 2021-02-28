@@ -10,9 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-
-
-
 class Rooms extends Component {
     constructor() {
         super();
