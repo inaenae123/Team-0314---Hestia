@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import Avatar from 'react-avatar';
 import { connect } from "react-redux";
@@ -11,6 +11,7 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             user: [],
+            name: '',
             about: '',
             phone: '',
             roommates: 0,
@@ -22,19 +23,46 @@ class UserProfile extends Component {
     
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state)
-        alert('Profile has been updated!')
-        // const newUser = {
-        //     username: this.state.username,
-        //     emailID: this.state.emailID
-        // };
-    
-        // axios.post('http://localhost:8080/api/users', newUser)
-        //     .then(response => {           
-        //         this.setState({}) // get age, name and other data from response and set 
-        //                           //  the states here respectively 
-        //     })
-        //     .catch(error => error);            
+        console.log(this.state);
+        alert('Profile has been updated!');
+        if (this.state.name == '') {
+            this.state.name = this.state.user.name;
+        }
+        if (this.state.about == '') {
+            this.state.about = this.state.user.about_me;
+        }
+        if (this.state.phone == '') {
+            this.state.phone = this.state.user.phone_number;
+        }
+        if (this.state.roommates == 0) {
+            this.state.roommates = this.state.user.roommates;
+        }
+        if (this.state.address == '') {
+            this.state.address = this.state.user.address;
+        }
+        if (this.state.email == '') {
+            this.state.email = this.state.user.email;
+        }
+        console.log(this.state.name)
+        var updatedUser = {
+            _id: this.state.user._id,
+            name: this.state.name,
+            email: this.state.email,
+            address: this.state.address,
+            roommates: this.state.roommates,
+            phone_number: this.state.phone,
+            about_me: this.state.about
+        };
+
+        console.log(updatedUser)
+        axios.put('http://localhost:3000/api/user', updatedUser)
+            .then(response => { 
+                console.log(updatedUser)
+                console.log(response)          
+                this.setState({user: response.data}) // get age, name and other data from response and set 
+                                  //  the states here respectively 
+            })
+            .catch(error => error);            
     }
 
     componentDidMount() {
@@ -50,7 +78,7 @@ class UserProfile extends Component {
         .then(res => {
             this.setState({user: res.data});
             console.log(this.state.user)
-            console.log(this.state.user.name)
+            console.log(this.state.user.about_me)
         });
     }
     
@@ -82,7 +110,7 @@ class UserProfile extends Component {
                                         id="name"
                                         name="name"
                                         type="text"
-                                        onChange={(e) => this.setState({name: e.target.value})}
+                                        onChange={this.handleChange}
                                         />
                                     </label>
                                 </div>
@@ -90,7 +118,7 @@ class UserProfile extends Component {
                                     <label htmlFor="about" className="col s12">
                                         About Me
                                         <input
-                                        value={this.state.about}
+                                        defaultValue={this.state.user.about_me}
                                         id="about"
                                         type="text"
                                         onChange={(e) => this.setState({about: e.target.value})}
@@ -114,7 +142,7 @@ class UserProfile extends Component {
                                 <div className="col s12">
                                     <label htmlFor="phone" className="col s12">Phone Number
                                         <input
-                                        value={this.state.phone}
+                                        defaultValue={this.state.user.phone_number}
                                         id="phone"
                                         type="text"
                                         onChange={(e) => this.setState({phone: e.target.value})}
@@ -127,7 +155,7 @@ class UserProfile extends Component {
                                 <div className="col s12">
                                     <label htmlFor="roommates" className="col s12">Number of Roommates
                                         <input
-                                        value={this.state.roommates}
+                                        defaultValue={this.state.user.roommates}
                                         id="roommates"
                                         type="number"
                                         onChange={(e) => this.setState({roommates: e.target.value})}
@@ -137,7 +165,7 @@ class UserProfile extends Component {
                                 <div className="col s12">
                                     <label htmlFor="address" className="col s12">Address
                                         <input
-                                        value={this.state.address}
+                                        defaultValue={this.state.user.address}
                                         id="address"
                                         type="text"
                                         onChange={(e) => this.setState({address: e.target.value})}
@@ -179,4 +207,4 @@ errors: state.errors
 export default connect(
 mapStateToProps,
 {getUser}
-)(UserProfile);
+)(withRouter(UserProfile));
