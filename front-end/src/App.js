@@ -17,6 +17,7 @@ import store from "./store";
 import UserProfile from "./components/profile/UserProfile";
 import Listings from "./components/listings/Listings";
 import Profiles from "./components/listings/Profiles";
+import Rooms from "./components/rooms/Rooms";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -45,16 +46,17 @@ class App extends Component {
       <Provider store={store}>
         <Router>
         <div className="App">
-        
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/userprofile" component={UserProfile} />
               <Route exact path="/listings" component={Listings} />
               <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/rooms" component={Rooms} />
           </Switch>
         </div>
       </Router>
