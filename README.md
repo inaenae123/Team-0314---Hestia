@@ -20,3 +20,12 @@ to add to the backend post with this url (localhost:3000/api/user/register)  in 
 	"email": <whatever email you want>,
 	"password" : <the password>
 }
+
+
+# Getting from the Database
+We currently have a method to get the logged in user's profile data from the database!  
+The current get method used to do this can be found in backend\routes\users.js under the method name router.get("/userprofile"...  
+Please refer to the contents of the componentDidMount() method located in front-end\src\components\profile\UserProfile.js for more info  
+Currently the user's profile data is stored under the path (this.state.users) in the UserProfile.js file  
+To access specific fields from this path, just append the desired field at the end of the path  
+For Example: To get id would be this.state.users.id  
