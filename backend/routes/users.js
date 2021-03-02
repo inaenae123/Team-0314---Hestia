@@ -47,11 +47,35 @@ router.get("/userprofile", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
+router.put("/user", async (req, res) => {
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    address: req.body.address,
+    roommates: req.body.roommates,
+    phone_number: req.body.phone_number,
+    about_me: req.body.about_me
+  });
+  let doc = await User.findOneAndUpdate({ "_id": req.body._id }, 
+  { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address}, "about_me": user.about_me, "roommates": user.roommates}, 
+    {new: true});
+  await doc.save();
+
+});
+
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
 router.post("/register", async (req, res) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    address: req.body.address,
+    roommates: req.body.roommates,
+    phone_number: req.body.phone_number,
+    about_me: req.body.about_me
   });
   try {
     const savedUser = await user.save();
