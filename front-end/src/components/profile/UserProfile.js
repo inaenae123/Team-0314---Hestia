@@ -16,9 +16,49 @@ class UserProfile extends Component {
             phone: '',
             roommates: 0,
             address: '',
-            email: ''
+            email: '',
+            listing: [],
+            listingName: '',
+            listingLocation: '',
+            listingOccupancy: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleListingSubmit = this.handleListingSubmit.bind(this);
+    }
+
+    handleListingSubmit(e) {
+        e.preventDefault();
+        console.log(this.state);
+        alert('Listing has been submitted!');
+        if (this.state.listingName == '') {
+            this.state.listingName = this.state.listing.name;
+        }
+        if (this.state.listingLocation == '') {
+            this.state.listingLocation = this.state.listing.location;
+        }
+        if (this.state.listingOccupancy == '') {
+            this.state.listingOccupancy = this.state.listing.Occupancy;
+        }
+        console.log("this is the listing stuff")
+        console.log(this.state.listing)
+        var updatedListing = {
+            name: this.state.listingName,
+            location: this.state.listingLocation,
+            Occupancy: this.state.listingOccupancy
+        };
+        console.log("here")
+        console.log(updatedListing)
+        axios.post('http://localhost:3000/api/addListing', updatedListing)
+            .then(response => { 
+                console.log(updatedListing)
+                console.log(response)          
+                this.setState({listing: response.data}) // get age, name and other data from response and set 
+                                  //  the states here respectively 
+                                  console.log("this is the listing stuff")
+                                  console.log(this.state.listing)
+            })
+            .catch(error => error); 
+            
     }
     
     handleSubmit(e) {
@@ -67,7 +107,8 @@ class UserProfile extends Component {
 
     componentDidMount() {
         const { user } = this.props.auth;
-        console.log(user);
+        
+        console.log("the user is " + user);
 
         axios.get('/api/userprofile', {
             params : {
@@ -80,6 +121,8 @@ class UserProfile extends Component {
             console.log(this.state.user)
             console.log(this.state.user.about_me)
         });
+        console.log("the props are these")
+        console.log(this.props.auth);
     }
     
     render() {
@@ -150,25 +193,48 @@ class UserProfile extends Component {
                                     </label>
                                 </div>
                             </div>
+                            <button
+                                style={{
+                                width: "160px",
+                                borderRadius: "5 px",
+                                margin: "10px 10px 10px 10px"
+                                }}
+                                value='Submit'
+                                type='submit'
+                                onClick={this.handleListingSubmit}
+                                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                            >
+                                Add Listing
+                            </button>
                             <div className="listinginfo col s12">
                                 <h5>Listing Information</h5>
                                 <div className="col s12">
-                                    <label htmlFor="roommates" className="col s12">Number of Roommates
+                                    <label htmlFor="roommates" className="col s12"> Listing name
                                         <input
-                                        defaultValue={this.state.user.roommates}
-                                        id="roommates"
-                                        type="number"
-                                        onChange={(e) => this.setState({roommates: e.target.value})}
+                                        defaultValue={this.state.listing.name}
+                                        id="name"
+                                        type="text"
+                                        onChange={(e) => this.setState({listingName: e.target.value})}
                                         />
                                     </label>
                                 </div>
                                 <div className="col s12">
                                     <label htmlFor="address" className="col s12">Address
                                         <input
-                                        defaultValue={this.state.user.address}
+                                        defaultValue={this.state.listing.location}
                                         id="address"
                                         type="text"
-                                        onChange={(e) => this.setState({address: e.target.value})}
+                                        onChange={(e) => this.setState({listingLocation: e.target.value})}
+                                        />
+                                    </label>
+                                </div>
+                                <div className="col s12">
+                                    <label htmlFor="address" className="col s12">Room mates
+                                        <input
+                                        defaultValue={this.state.listing.Occupancy}
+                                        id="roommates"
+                                        type="number"
+                                        onChange={(e) => this.setState({listingOccupancy: e.target.value})}
                                         />
                                     </label>
                                 </div>

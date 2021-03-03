@@ -7,6 +7,7 @@ const keys = require("../config/keys");
 const validateLoginInput = require("../validation/login");
 // Load User model
 const User = require("../model/User");
+const Listing = require("../model/Listing");
 
 
 
@@ -19,6 +20,40 @@ router.get("/user", (req, res) => {
     });
     console.log("Returned data");
   
+});
+
+router.get("/listing", (req, res) => {
+  console.log("I received a GET request")
+    Listing.find({},function(err, docs){
+        console.log("Getting data from db");
+        console.log(docs);
+        res.json(docs);
+    });
+    console.log("Returned data");
+  
+});
+
+//Get request for fields in profile page
+router.get("/currentListing", (req, res) => {
+  console.log("I received a GET request")
+  //console.log(req);
+  let currentListing;
+  Lising.find({},function(err, docs){
+    console.log("Getting current listing");
+    console.log(docs);
+    console.log(docs[0]);
+    console.log("BEGIN FOR LOOP");
+    console.log(req.query);
+    for(let r = 0; r < docs.length; r++) {
+      if(docs[r].id == req.query.id) {
+        currentListing = docs[r];
+        console.log(docs[r]);
+      }
+    }
+    console.log(currentListing);
+    res.json(currentListing);
+});
+  console.log("Returned user");
 });
 
 //Get request for fields in profile page
@@ -47,7 +82,27 @@ router.get("/userprofile", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-router.put("/user", async (req, res) => {
+router.post("/addListing", async (req, res) => {
+  console.log("I received a Put request")
+  const listing = new Listing({
+    name: req.body.name,
+    location: req.body.location,
+    Occupancy: req.body.Occupancy
+  });
+  try {
+    const savedListing = await listing.save();
+    res.json({ error: null, data: savedListing });
+  } catch (error) {
+  
+    res.status(400).json({ error });
+  }
+
+});
+
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
+router.post("/user", async (req, res) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
