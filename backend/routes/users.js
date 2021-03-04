@@ -9,8 +9,6 @@ const validateLoginInput = require("../validation/login");
 const User = require("../model/User");
 const Listing = require("../model/Listing");
 
-
-
 router.get("/user", (req, res) => {
   console.log("I received a GET request")
     User.find({},function(err, docs){
@@ -25,26 +23,21 @@ router.get("/user", (req, res) => {
 router.get("/listing", (req, res) => {
   console.log("I received a GET request")
     Listing.find({},function(err, docs){
-        console.log("Getting data from db");
-        console.log(docs);
         res.json(docs);
-    });
-    console.log("Returned data");
-  
+    });  
 });
 
 //Get request for fields in profile page
 router.get("/currentListing", (req, res) => {
-  console.log("I received a GET request")
   //console.log(req);
   let currentListing;
-  Lising.find({},function(err, docs){
-    console.log("Getting current listing");
-    console.log(docs);
-    console.log(docs[0]);
-    console.log("BEGIN FOR LOOP");
+  Listing.find({},function(err, docs){
     console.log(req.query);
     for(let r = 0; r < docs.length; r++) {
+      console.log("first arg")
+      console.log(docs[r])
+      console.log("second arg")
+      console.log(req.query.id)
       if(docs[r].id == req.query.id) {
         currentListing = docs[r];
         console.log(docs[r]);
@@ -53,12 +46,13 @@ router.get("/currentListing", (req, res) => {
     console.log(currentListing);
     res.json(currentListing);
 });
-  console.log("Returned user");
+  console.log("Returned listing");
 });
 
 //Get request for fields in profile page
 router.get("/userprofile", (req, res) => {
   console.log("I received a GET request")
+  console.log("the user id is" + req.query.id)
   //console.log(req);
   let currentUser;
   User.find({},function(err, docs){
@@ -82,27 +76,25 @@ router.get("/userprofile", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-router.post("/addListing", async (req, res) => {
+/*router.post("/addListing", async (req, res) => {
   console.log("I received a Put request")
   const listing = new Listing({
     name: req.body.name,
     location: req.body.location,
-    Occupancy: req.body.Occupancy
+    Occupancy: req.body.Occupancy,
+    roomMates: req.body.roomMates
   });
-  try {
     const savedListing = await listing.save();
     res.json({ error: null, data: savedListing });
-  } catch (error) {
-  
-    res.status(400).json({ error });
-  }
-
-});
+    let doc = await Listing.findOneAndUpdate({ "_id": req.body._id }, 
+  { "$set": { "name": listing.name, "location": listing.location, "occupancy": listing.Occupancy, "roomMates": listing.roomMates}}, {new: true});
+  await doc.save();
+});*/
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-router.post("/user", async (req, res) => {
+router.put("/user", async (req, res) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -110,11 +102,28 @@ router.post("/user", async (req, res) => {
     address: req.body.address,
     roommates: req.body.roommates,
     phone_number: req.body.phone_number,
-    about_me: req.body.about_me
+    about_me: req.body.about_me,
+    listingName: req.body.listingName,
+    listingLocation : req.body.listingLocation,
+    listingOccupancy: req.body.listingOccupancy,
+    listingRoomMates: req.body.listingRoomMates
   });
+  console.log("the listing location is " + user.listingLocation)
   let doc = await User.findOneAndUpdate({ "_id": req.body._id }, 
-  { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address}, "about_me": user.about_me, "roommates": user.roommates}, 
-    {new: true});
+  { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
+  await doc.save();
+
+});
+
+router.put("/updateListing", async (req, res) => {
+  const user = new Listing({
+    listingName: req.body.listingName,
+    listingLocation : req.body.listingLocation,
+    listingOccupancy: req.body.listingOccupancy,
+    listingRoomMates: req.body.listingRoomMates
+  });
+  let doc = await Listing.findOneAndUpdate({ "listingName": req.body.listingName }, 
+  { "$set": {"listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
   await doc.save();
 
 });

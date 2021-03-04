@@ -33,6 +33,22 @@ const UserSchema = new Schema({
   about_me: {
     type: String,
     required: false
+  },
+  listingName:{
+    type: String,
+    required: false
+  },
+  listingLocation: {
+    type: String,
+    required: false
+  },
+  listingOccupancy:{
+    type: Number,
+    required: false
+  },
+  listingRoomMates: {
+    type: String,
+    required: false
   }
 });
 module.exports = User = mongoose.model("users", UserSchema);

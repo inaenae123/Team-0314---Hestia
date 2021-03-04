@@ -13,6 +13,10 @@ const ListingSchema = new Schema({
   Occupancy: {
     type: Number,
     required: true
+  }, 
+  Roommates: {
+    type: Array,
+    required: false
   }
 });
 module.exports = Listing = mongoose.model("listings", ListingSchema);
