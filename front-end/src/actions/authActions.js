@@ -7,8 +7,52 @@ import {
   USER_LOADING
 } from "./types";
 
-//get users
+//get Current Listing Data
+export const getListing = listingData => dispatch => {
+  axios
+    .get('/currentListing', listingData)
+        .then(res => {
+            //this.setState({users: res.data});
+            //console.log(this.state.users)
+            dispatch(res);
+            return res;
+        });
+}
+// Register User
+export const addListing = (listingData, history) => dispatch => {
+  axios
+    .post("/api/addListing", listingData)
+    .then(res => {
+      // Save to localStorage
+// Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })// re-direct to login on successful register
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
+//get Current User Data
+export const getUser = userData => dispatch => {
+  axios
+    .get('/userprofile', userData)
+        .then(res => {
+            //this.setState({users: res.data});
+            //console.log(this.state.users)
+            dispatch(res);
+            return res;
+        });
+}
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
@@ -55,6 +99,7 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {

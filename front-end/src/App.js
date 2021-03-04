@@ -14,6 +14,10 @@ import Dashboard from "./components/dashboard/Dashboard";
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import UserProfile from "./components/profile/UserProfile";
+import Room from "./components/rooms/Room";
+import Profiles from "./components/listings/Profiles";
+import Rooms from "./components/rooms/Rooms";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -46,9 +50,14 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
+              <Route exact path="/userprofile" component={UserProfile} />
+              <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/rooms" component={Rooms} />
+              <Route exact path="/room" component={Room} />
+          </Switch>
         </div>
       </Router>
       </Provider>

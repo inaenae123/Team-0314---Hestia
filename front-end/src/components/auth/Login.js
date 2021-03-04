@@ -4,6 +4,7 @@ import "./Auth.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import { setCurrentUser } from "../../actions/authActions";
 import classnames from "classnames";
 
 class Login extends Component {
@@ -28,7 +29,7 @@ class Login extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard"); // push user to dashboard when they login
     }
-if (nextProps.errors) {
+    if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
@@ -37,19 +38,22 @@ if (nextProps.errors) {
 
 onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
-  };
-onSubmit = e => {
-    e.preventDefault();
+};
 
-const userData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-this.props.loginUser(userData);
+onSubmit = e => {
+  e.preventDefault();
+
+  const userData = {
+    email: this.state.email,
+    password: this.state.password
   };
+
+  this.props.loginUser(userData)
+};
+
 render() {
     const { errors } = this.state;
-return (
+  return (
       <div className="container" >
         <div style={{ padding: "40px 20%"}} className="row">
           <div className="col s8" style={{backgroundColor: "white", padding: "30px 20px", borderRadius: "6px"}}>
@@ -124,6 +128,7 @@ return (
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
+    setCurrentUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
   };
@@ -135,5 +140,5 @@ Login.propTypes = {
 
   export default connect(
     mapStateToProps,
-    { loginUser }
+    { loginUser, setCurrentUser }
   )(Login);
