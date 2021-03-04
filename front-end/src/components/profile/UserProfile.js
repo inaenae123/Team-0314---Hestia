@@ -24,38 +24,8 @@ class UserProfile extends Component {
             listingRoomMates: []
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleListingSubmit = this.handleListingSubmit.bind(this);
     }
 
-    handleListingSubmit(e) {
-        e.preventDefault();
-        alert('Listing has been submitted!');
-        if (this.state.listingName == '') {
-            this.state.listingName = this.state.listing.name;
-        }
-        if (this.state.listingLocation == '') {
-            this.state.listingLocation = this.state.listing.location;
-        }
-        if (this.state.listingOccupancy == '') {
-            this.state.listingOccupancy = this.state.listing.Occupancy;
-        }
-        if (this.state.listingRoomMates == '') {
-            this.state.listingRoomMates = this.state.listing.roomMates;
-        }
-        var updatedListing = {
-            name: this.state.listingName,
-            location: this.state.listingLocation,
-            Occupancy: this.state.listingOccupancy,
-            roomMates: this.state.listingRoomMates
-        };
-        axios.post('http://localhost:3000/api/addListing', updatedListing)
-            .then(response => {        
-                this.setState({listing: response.data}) 
-            })
-            .catch(error => error); 
-            
-    }
-    
     handleSubmit(e) {
         e.preventDefault();
         console.log(this.state);
@@ -117,18 +87,38 @@ class UserProfile extends Component {
             .catch(error => error);  
 
             var updatedListing = {
+                _id: this.state.listing._id,
                 name: this.state.listingName,
                 location: this.state.listingLocation,
                 Occupancy: this.state.listingOccupancy,
                 roomMates: this.state.listingRoomMates
             };
         
-        if (this.state.listingName == '') {
+        if (this.state.listing.length == 0) {
+            console.log("first")
+            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listing is " + this.state.listing)
             axios.post('http://localhost:3000/api/addListing', updatedListing)
             .then(response => {        
                 this.setState({listing: response.data}) 
+                console.log("this is the response data" + response.data.id)
             })
             .catch(error => error); 
+            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listing is " + this.state.listing)
+        } else {
+            console.log("second")
+            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listing is " + this.state.listing)
+            axios.put('http://localhost:3000/api/updateListing', updatedListing)
+            .then(response => {      
+                this.setState({listing: response.data}) 
+                console.log("this is the response data" + response.data.id)// get age, name and other data from response and set 
+                                  //  the states here respectively 
+            })
+            .catch(error => error); 
+            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listing is " + this.state.listing)
         }
     }
 
@@ -220,18 +210,6 @@ class UserProfile extends Component {
                                     </label>
                                 </div>
                             </div>
-                            <button
-                                style={{
-                                width: "160px",
-                                borderRadius: "5 px",
-                                margin: "10px 10px 10px 10px"
-                                }}
-                                value='Submit'
-                                type='submit'
-                                onClick={this.handleListingSubmit}
-                                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                            > Add Listing
-                            </button>
                             <div className="listinginfo col s12">
                                 <h5>Listing Information</h5>
                                 <div className="col s12">
@@ -264,23 +242,10 @@ class UserProfile extends Component {
                                         />
                                     </label>
                                 </div>
-                                <button
-                                style={{
-                                width: "160px",
-                                borderRadius: "5 px",
-                                margin: "10px 10px 10px 10px"
-                                }}
-                                value='Submit'
-                                type='submit'
-                                onClick={this.handleListingSubmit}
-                                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                            >
-                                Add RoomMates
-                            </button>
                                 <div className="col s12">
                                     <label htmlFor="address" className="col s12">RoomMates
                                         <input
-                                        defaultValue={this.state.listing.Occupancy}
+                                        defaultValue={this.state.user.Occupancy}
                                         id="roommates"
                                         type="number"
                                         onChange={(e) => this.setState({listingRoom: e.target.value})}

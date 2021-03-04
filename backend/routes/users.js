@@ -76,20 +76,24 @@ router.get("/userprofile", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-/*router.post("/addListing", async (req, res) => {
-  console.log("I received a Put request")
+router.post("/addListing", async (req, res) => {
+  console.log("I received a post request")
   const listing = new Listing({
     name: req.body.name,
     location: req.body.location,
     Occupancy: req.body.Occupancy,
     roomMates: req.body.roomMates
   });
+  try {
     const savedListing = await listing.save();
     res.json({ error: null, data: savedListing });
-    let doc = await Listing.findOneAndUpdate({ "_id": req.body._id }, 
-  { "$set": { "name": listing.name, "location": listing.location, "occupancy": listing.Occupancy, "roomMates": listing.roomMates}}, {new: true});
-  await doc.save();
-});*/
+
+    console.log("this is the saved listing" + savedListing)
+    console.log("this is the response" + res.data)
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
@@ -108,7 +112,6 @@ router.put("/user", async (req, res) => {
     listingOccupancy: req.body.listingOccupancy,
     listingRoomMates: req.body.listingRoomMates
   });
-  console.log("the listing location is " + user.listingLocation)
   let doc = await User.findOneAndUpdate({ "_id": req.body._id }, 
   { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
   await doc.save();
@@ -116,14 +119,15 @@ router.put("/user", async (req, res) => {
 });
 
 router.put("/updateListing", async (req, res) => {
-  const user = new Listing({
-    listingName: req.body.listingName,
-    listingLocation : req.body.listingLocation,
-    listingOccupancy: req.body.listingOccupancy,
-    listingRoomMates: req.body.listingRoomMates
+  const listing = new Listing({
+    name: req.body.name,
+    location: req.body.location,
+    Occupancy: req.body.Occupancy,
+    roomMates: req.body.roomMates
   });
-  let doc = await Listing.findOneAndUpdate({ "listingName": req.body.listingName }, 
-  { "$set": {"listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
+  console.log("the req body is " + req.body.name)
+  let doc = await Listing.findOneAndUpdate({ "_id": req.body._id }, 
+  { "$set": {"name": listing.name, "location": listing.location, "Occupancy": listing.Occupancy, "roomMates": listing.roomMates}}, {new: true});
   await doc.save();
 
 });
