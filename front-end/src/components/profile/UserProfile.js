@@ -253,6 +253,22 @@ class UserProfile extends Component {
                                     </label>
                                 </div>
                             </div>
+                            <div className="personality col s12">
+                                <h5>Personality Information</h5>
+                                <h6>You have not taken the questionnaire! Press the button below to take it.</h6>
+                                <Link
+                                to="/questionnaire"
+                                style={{
+                                    width: "200px",
+                                    borderRadius: "3px",
+                                    margin: "20px 0px",
+                                    padding: "15px" 
+                                }}
+                                className="btn btn-large waves-effect waves-light hoverable gray accent-3"
+                                >
+                                Take Questionnaire
+                                </Link>
+                            </div>
                         </form>
                         <button
                                 style={{
