@@ -33,11 +33,7 @@ class Profiles extends Component {
                     <Link to="/dashboard" className="btn-flat waves-effect">
                         <i className="material-icons left">keyboard_backspace</i> Back to Dashboard
                     </Link>
-<<<<<<< Updated upstream
-                    <h1 style={{textAlign:"center", margin: "0px"}}><strong>Room Listings</strong></h1>
-=======
                     <h1 style={{textAlign:"center", margin: "0px"}}><strong>User Profiles</strong></h1>
->>>>>>> Stashed changes
                 </div>
                 <div className="row" style={{margin: "30px 10px", justifyContent: 'center'}}>
                     {this.state.users.map((user) => {

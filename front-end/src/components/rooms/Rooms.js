@@ -1,27 +1,53 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
-import classnames from "classnames";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Dropdown from 'react-bootstrap/Dropdown';
 import 'semantic-ui-css/semantic.min.css'
 import {Card, Icon} from 'semantic-ui-react'
+import Button from "react-bootstrap/Button";
 
 class Rooms extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listings: []
+            listings: [],
+            filter: []
         }
+        this.compareOccupancy = this.compareOccupancy.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.reset = this.reset.bind(this);
       }
+
+    // Method used to sort through Occupancies
+    compareOccupancy(a, b) {
+        if (a.Occupancy > b.Occupancy) return 1;
+        if (b.Occupancy > a.Occupancy) return -1;
+        return 0;
+    }
+
+    // Deals with Occupancy filter
+    handleChange(e) {
+        console.log(this.state.filter);
+        let filteredArray = [...this.state.listings];
+        filteredArray = filteredArray.sort(this.compareOccupancy);
+        this.setState({filter: filteredArray});
+        console.log(this.state.filter)
+    }
+
+    reset() {
+        let originalArray = [...this.state.listings];
+        console.log(originalArray);
+        this.setState({filter: originalArray});
+    }
     
-      componentDidMount() {
+    componentDidMount() {
         //Receives listings from api
         axios.get('/api/listing', {
         })
         .then(res => {
             this.setState({listings: res.data});
+            this.setState({filter: res.data});
             console.log(this.state.listings)
         });
     }
@@ -34,9 +60,35 @@ class Rooms extends Component {
                         <i className="material-icons left">keyboard_backspace</i> Back to Dashboard
                     </Link>
                     <h1 style={{textAlign:"center", margin: "0px"}}><strong>Room Listings</strong></h1>
+                    <div style={{paddingTop: "10px"}}>
+                        <Dropdown style={{display: "inline", padding: "0px 10px"}}>
+                            <Dropdown.Toggle>
+                                Sort By
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item>Price Low to High</Dropdown.Item>
+                                <Dropdown.Item>Price High to Low</Dropdown.Item>
+                                <Dropdown.Item eventKey="Occupancy" onSelect={this.handleChange}>Occupancy</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Dropdown style={{display: "inline", padding: "0px 10px"}}>
+                            <Dropdown.Toggle>
+                                Filter By
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item>Price Low to High</Dropdown.Item>
+                                <Dropdown.Item>Price High to Low</Dropdown.Item>
+                                <Dropdown.Item>Occupancy</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Button variant="light" onClick={this.reset} style={{margin: "0px 10px"}}>
+                            Reset
+                        </Button>
+                    </div>
+                    
                 </div>
                 <div className="row" style={{margin: "30px 10px", justifyContent: 'center'}}>
-                    {this.state.listings.map((listing) => {
+                    {this.state.filter.map((listing) => {
                         console.log(listing);
                         var occupancy = "Occupancy: " + listing.Occupancy;
                         var extra = ( <div> <Icon name='user'/> {occupancy} </div>);
