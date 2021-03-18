@@ -5,6 +5,7 @@ import Avatar from 'react-avatar';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUser } from "../../actions/authActions";
+import Questionnaire from "./Questionnaire";
 
 class UserProfile extends Component {
     constructor(props) {
@@ -257,7 +258,8 @@ class UserProfile extends Component {
                                 <h5>Personality Information</h5>
                                 <h6>You have not taken the questionnaire! Press the button below to take it.</h6>
                                 <Link
-                                to="/questionnaire"
+                                to={{
+                                    pathname:'/questionnaire', state: {id: this.state.user._id}}}
                                 style={{
                                     width: "200px",
                                     borderRadius: "3px",

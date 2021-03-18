@@ -8,21 +8,26 @@ const validateLoginInput = require("../validation/login");
 // Load User model
 const User = require("../model/User");
 const Listing = require("../model/Listing");
+const Questionnaire = require("../model/Questionnaire");
 
 router.get("/user", (req, res) => {
   console.log("I received a GET request")
     User.find({},function(err, docs){
-        console.log("Getting data from db");
-        console.log(docs);
         res.json(docs);
     });
     console.log("Returned data");
-  
 });
 
 router.get("/listing", (req, res) => {
   console.log("I received a GET request")
     Listing.find({},function(err, docs){
+        res.json(docs);
+    });  
+});
+
+router.get("/questionnaire", (req, res) => {
+  console.log("I received a GET request")
+    Questionnaire.find({},function(err, docs){
         res.json(docs);
     });  
 });
@@ -95,6 +100,25 @@ router.post("/addListing", async (req, res) => {
   }
 });
 
+router.post("/addQuestionnaire", async (req, res) => {
+  console.log("I received a post request")
+  const question = new Questionnaire({
+    userId: req.body.userId,
+    answer1: req.body.answer1,
+    answer2: req.body.answer2,
+    answer3: req.body.answer3,
+    answer4: req.body.answer4,
+    answer5: req.body.answer5,
+    answer6: req.body.answer6
+  });
+  try {
+    const savedQuestionnaire = await question.save();
+    res.json({ error: null, data: savedQuestionnaire });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
@@ -113,6 +137,22 @@ router.put("/user", async (req, res) => {
     listingRoomMates: req.body.listingRoomMates
   });
   let doc = await User.findOneAndUpdate({ "_id": req.body._id }, 
+  { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
+  await doc.save();
+
+});
+
+router.put("/questionnaire", async (req, res) => {
+  const user = new User({
+    userId: req.body.userId,
+    answer1: req.body.answer1,
+    answer2: req.body.answer2,
+    answer3: req.body.answer3,
+    answer4: req.body.answer4,
+    answer5: req.body.answer5,
+    answer6: req.body.answer6
+  });
+  let doc = await Questionnaire.findOneAndUpdate({ "_id": req.body.user }, 
   { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
   await doc.save();
 
