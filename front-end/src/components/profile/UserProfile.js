@@ -5,6 +5,7 @@ import Avatar from 'react-avatar';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUser } from "../../actions/authActions";
+import Questionnaire from "./Questionnaire";
 
 class UserProfile extends Component {
     constructor(props) {
@@ -253,6 +254,26 @@ class UserProfile extends Component {
                                     </label>
                                 </div>
                             </div>
+<<<<<<< Updated upstream
+=======
+                            <div className="personality col s12">
+                                <h5>Personality Information</h5>
+                                <h6>You have not taken the questionnaire! Press the button below to take it.</h6>
+                                <Link
+                                to={{
+                                    pathname:'/questionnaire', state: {id: this.state.user._id}}}
+                                style={{
+                                    width: "200px",
+                                    borderRadius: "3px",
+                                    margin: "20px 0px",
+                                    padding: "15px" 
+                                }}
+                                className="btn btn-large waves-effect waves-light hoverable gray accent-3"
+                                >
+                                Take Questionnaire
+                                </Link>
+                            </div>
+>>>>>>> Stashed changes
                         </form>
                         <button
                                 style={{
