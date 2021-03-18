@@ -254,8 +254,6 @@ class UserProfile extends Component {
                                     </label>
                                 </div>
                             </div>
-<<<<<<< Updated upstream
-=======
                             <div className="personality col s12">
                                 <h5>Personality Information</h5>
                                 <h6>You have not taken the questionnaire! Press the button below to take it.</h6>
@@ -273,7 +271,6 @@ class UserProfile extends Component {
                                 Take Questionnaire
                                 </Link>
                             </div>
->>>>>>> Stashed changes
                         </form>
                         <button
                                 style={{

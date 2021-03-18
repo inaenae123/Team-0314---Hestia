@@ -65,6 +65,7 @@ class Questionnaire extends Component {
                         <div style={{ paddingLeft: "25px" , paddingTop: "35px"}}>
                         <FormControl component="fieldset">
                             <div style={{ paddingTop: "10px"}}>
+
                                 <FormLabel component="legend">1. Helping others is something I work hard to do</FormLabel>
                                 <RadioGroup row aria-label="q1" name="q1" defaultValue="Neutral" selectedValue={this.state.selectedValue} onChange={(e) => this.setState({answer1: e.target.value})}>
                                     <FormControlLabel value="-2" control={<Radio color="primary" />} label="Strongly Disagree" labelPlacement="bottom"/>
@@ -122,6 +123,23 @@ class Questionnaire extends Component {
                                     <FormControlLabel value="0" control={<Radio color="primary" />} label="Neutral" labelPlacement="bottom"/>
                                     <FormControlLabel value="1" control={<Radio color="primary" />} label="Agree" labelPlacement="bottom"/>
                                     <FormControlLabel value="2" control={<Radio color="primary" />} label="Strongly Agree" labelPlacement="bottom"/>
+                                <FormLabel component="legend">1. Question</FormLabel>
+                                <RadioGroup row aria-label="q1" name="q1" defaultValue="Neutral">
+                                    <FormControlLabel value="Strongly Disagree" control={<Radio color="primary" />} label="Strongly Disagree" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Disagree" control={<Radio color="primary" />} label="Disagree" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Neutral" control={<Radio color="primary" />} label="Neutral" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Agree" control={<Radio color="primary" />} label="Agree" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Strongly Agree" control={<Radio color="primary" />} label="Strongly Agree" labelPlacement="bottom"/>
+                                </RadioGroup>
+                            </div>
+                            <div style={{ paddingTop: "20px"}}>
+                                <FormLabel component="legend">2. Question</FormLabel>
+                                <RadioGroup row aria-label="q2" name="q2" defaultValue="Neutral">
+                                    <FormControlLabel value="Strongly Disagree" control={<Radio color="primary" />} label="Strongly Disagree" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Disagree" control={<Radio color="primary" />} label="Disagree" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Neutral" control={<Radio color="primary" />} label="Neutral" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Agree" control={<Radio color="primary" />} label="Agree" labelPlacement="bottom"/>
+                                    <FormControlLabel value="Strongly Agree" control={<Radio color="primary" />} label="Strongly Agree" labelPlacement="bottom"/>
                                 </RadioGroup>
                             </div>
                         </FormControl>
