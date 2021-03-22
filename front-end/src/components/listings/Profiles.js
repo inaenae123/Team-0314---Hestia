@@ -13,7 +13,13 @@ class Profiles extends Component {
         super(props);
         this.state = {
             users: []
-        }
+        };
+        this.showMathces = this.showMatches.bind(this);
+      }
+
+      showMatches(e) {
+        e.preventDefault();
+        alert('Here are the matches');
       }
     
       componentDidMount() {
@@ -33,11 +39,7 @@ class Profiles extends Component {
                     <Link to="/dashboard" className="btn-flat waves-effect">
                         <i className="material-icons left">keyboard_backspace</i> Back to Dashboard
                     </Link>
-<<<<<<< Updated upstream
-                    <h1 style={{textAlign:"center", margin: "0px"}}><strong>Room Listings</strong></h1>
-=======
                     <h1 style={{textAlign:"center", margin: "0px"}}><strong>User Profiles</strong></h1>
->>>>>>> Stashed changes
                 </div>
                 <div className="row" style={{margin: "30px 10px", justifyContent: 'center'}}>
                     {this.state.users.map((user) => {
@@ -56,7 +58,22 @@ class Profiles extends Component {
                         return card
                     })};
                 </div>
+                <button
+            style={{
+            width: "160px",
+            borderRadius: "3px",
+            margin: "10px 10px 0px 0px"
+            }}
+            value='Submit'
+            type='submit'
+            onClick={this.showMatches}
+            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+        >
+            Show Matches
+        </button>
             </div>
+            
+            
         );
     }
 }

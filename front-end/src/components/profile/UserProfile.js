@@ -22,7 +22,8 @@ class UserProfile extends Component {
             listingName: '',
             listingLocation: '',
             listingOccupancy: 0,
-            listingRoomMates: []
+            listingRoomMates: [],
+            price: 0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -92,12 +93,13 @@ class UserProfile extends Component {
                 name: this.state.listingName,
                 location: this.state.listingLocation,
                 Occupancy: this.state.listingOccupancy,
-                roomMates: this.state.listingRoomMates
+                roomMates: this.state.listingRoomMates,
+                price: this.state.price
             };
         
         if (this.state.listing.length == 0) {
             console.log("first")
-            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listing id is " + this.state.listing.id)
             console.log("the listing is " + this.state.listing)
             axios.post('http://localhost:3000/api/addListing', updatedListing)
             .then(response => {        
@@ -253,9 +255,17 @@ class UserProfile extends Component {
                                         />
                                     </label>
                                 </div>
+                                <div className="col s12">
+                                    <label htmlFor="address" className="col s12">price
+                                        <input
+                                        defaultValue={this.state.user.price}
+                                        id="price"
+                                        type="number"
+                                        onChange={(e) => this.setState({price: e.target.value})}
+                                        />
+                                    </label>
+                                </div>
                             </div>
-<<<<<<< Updated upstream
-=======
                             <div className="personality col s12">
                                 <h5>Personality Information</h5>
                                 <h6>You have not taken the questionnaire! Press the button below to take it.</h6>
@@ -273,7 +283,6 @@ class UserProfile extends Component {
                                 Take Questionnaire
                                 </Link>
                             </div>
->>>>>>> Stashed changes
                         </form>
                         <button
                                 style={{

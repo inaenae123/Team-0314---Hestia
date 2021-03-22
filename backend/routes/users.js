@@ -87,7 +87,8 @@ router.post("/addListing", async (req, res) => {
     name: req.body.name,
     location: req.body.location,
     Occupancy: req.body.Occupancy,
-    roomMates: req.body.roomMates
+    roomMates: req.body.roomMates, 
+    price: req.body.price
   });
   try {
     const savedListing = await listing.save();
@@ -163,7 +164,8 @@ router.put("/updateListing", async (req, res) => {
     name: req.body.name,
     location: req.body.location,
     Occupancy: req.body.Occupancy,
-    roomMates: req.body.roomMates
+    roomMates: req.body.roomMates,
+    price: req.body.price
   });
   console.log("the req body is " + req.body.name)
   let doc = await Listing.findOneAndUpdate({ "_id": req.body._id }, 
