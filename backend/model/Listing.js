@@ -17,6 +17,10 @@ const ListingSchema = new Schema({
   Roommates: {
     type: Array,
     required: false
+  },
+  price: {
+    type: Number,
+    required: true
   }
 });
 module.exports = Listing = mongoose.model("listings", ListingSchema);

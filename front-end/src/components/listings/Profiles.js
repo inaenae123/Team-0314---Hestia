@@ -13,7 +13,13 @@ class Profiles extends Component {
         super(props);
         this.state = {
             users: []
-        }
+        };
+        this.showMathces = this.showMatches.bind(this);
+      }
+
+      showMatches(e) {
+        e.preventDefault();
+        alert('Here are the matches');
       }
     
       componentDidMount() {
@@ -52,7 +58,22 @@ class Profiles extends Component {
                         return card
                     })};
                 </div>
+                <button
+            style={{
+            width: "160px",
+            borderRadius: "3px",
+            margin: "10px 10px 0px 0px"
+            }}
+            value='Submit'
+            type='submit'
+            onClick={this.showMatches}
+            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+        >
+            Show Matches
+        </button>
             </div>
+            
+            
         );
     }
 }
