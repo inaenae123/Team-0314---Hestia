@@ -17,6 +17,10 @@ class Rooms extends Component {
         this.compareOccupancy = this.compareOccupancy.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.reset = this.reset.bind(this);
+        this.comparePriceHightoLow = this.comparePriceHightoLow.bind(this);
+        this.handlePriceHighToLow = this.handlePriceHighToLow.bind(this);
+        this.comparePriceLowtoHigh = this.comparePriceLowtoHigh.bind(this);
+        this.handlePriceLowToHigh = this.handlePriceLowToHigh.bind(this);
       }
 
     // Method used to sort through Occupancies
@@ -24,6 +28,40 @@ class Rooms extends Component {
         if (a.Occupancy > b.Occupancy) return 1;
         if (b.Occupancy > a.Occupancy) return -1;
         return 0;
+    }
+
+    // Method used to sort through Price from High to Low
+    comparePriceHightoLow(a, b) {
+        if (a.price > b.price) return -1;
+        if (b.price > a.price) return 1;
+        return 0;
+    }
+
+    // Deals with Price filter
+    handlePriceHighToLow(e) {
+        console.log(e);
+        console.log(this.state.filter);
+        let filteredArray = [...this.state.listings];
+        filteredArray = filteredArray.sort(this.comparePriceHightoLow);
+        this.setState({filter: filteredArray});
+        console.log(this.state.filter)
+    }
+
+    // Method used to sort through Price from High to Low
+    comparePriceLowtoHigh(a, b) {
+        if (a.price > b.price) return 1;
+        if (b.price > a.price) return -1;
+        return 0;
+    }
+
+    // Deals with Price filter
+    handlePriceLowToHigh(e) {
+        console.log(e);
+        console.log(this.state.filter);
+        let filteredArray = [...this.state.listings];
+        filteredArray = filteredArray.sort(this.comparePriceLowtoHigh);
+        this.setState({filter: filteredArray});
+        console.log(this.state.filter)
     }
 
     // Deals with Occupancy filter
@@ -62,17 +100,17 @@ class Rooms extends Component {
                     <h1 style={{textAlign:"center", margin: "0px"}}><strong>Room Listings</strong></h1>
                     <div style={{paddingTop: "10px"}}>
                         <Dropdown style={{display: "inline", padding: "0px 10px"}}>
-                            <Dropdown.Toggle>
+                            <Dropdown.Toggle style={{backgroundColor: "#FFFB9B", color: "black", borderColor: "#FFFB9B"}}>
                                 Sort By
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item>Price Low to High</Dropdown.Item>
-                                <Dropdown.Item>Price High to Low</Dropdown.Item>
+                                <Dropdown.Item onClick={this.handlePriceLowToHigh}>Price Low to High</Dropdown.Item>
+                                <Dropdown.Item eventKey="Price" onClick={this.handlePriceHighToLow}>Price High to Low</Dropdown.Item>
                                 <Dropdown.Item eventKey="Occupancy" onSelect={this.handleChange}>Occupancy</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                         <Dropdown style={{display: "inline", padding: "0px 10px"}}>
-                            <Dropdown.Toggle>
+                            <Dropdown.Toggle style={{backgroundColor: "#FFFB9B", color: "black", borderColor: "#FFFB9B"}}>
                                 Filter By
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
@@ -92,6 +130,7 @@ class Rooms extends Component {
                         console.log(listing);
                         var occupancy = "Occupancy: " + listing.Occupancy;
                         var extra = ( <div> <Icon name='user'/> {occupancy} </div>);
+                        var price = "Price: $" + listing.price;
                         var card = (
                             <Link to="/room" style={{margin: '20px', justifyContent: 'center'}}>
                                 <Card centered
@@ -100,6 +139,7 @@ class Rooms extends Component {
                                     header={listing.name}
                                     meta={listing.location}
                                     extra = {extra}
+                                    description = {price}
                                     />
                             </Link>
                         );
