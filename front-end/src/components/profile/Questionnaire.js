@@ -47,6 +47,12 @@ class Questionnaire extends Component {
                                   //  the states here respectively 
             })
             .catch(error => error);  
+
+        console.log("these are your matches");
+        var x;
+        for(x in updatedQuestionnaire){
+            console.log(updatedQuestionnaire[x])
+        }
     }
 
     render() {

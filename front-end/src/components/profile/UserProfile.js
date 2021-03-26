@@ -22,7 +22,8 @@ class UserProfile extends Component {
             listingName: '',
             listingLocation: '',
             listingOccupancy: 0,
-            listingRoomMates: []
+            listingRoomMates: [],
+            price: 0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -92,12 +93,13 @@ class UserProfile extends Component {
                 name: this.state.listingName,
                 location: this.state.listingLocation,
                 Occupancy: this.state.listingOccupancy,
-                roomMates: this.state.listingRoomMates
+                roomMates: this.state.listingRoomMates,
+                price: this.state.price
             };
         
         if (this.state.listing.length == 0) {
             console.log("first")
-            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listing id is " + this.state.listing.id)
             console.log("the listing is " + this.state.listing)
             axios.post('http://localhost:3000/api/addListing', updatedListing)
             .then(response => {        
@@ -250,6 +252,16 @@ class UserProfile extends Component {
                                         id="roommates"
                                         type="number"
                                         onChange={(e) => this.setState({listingRoom: e.target.value})}
+                                        />
+                                    </label>
+                                </div>
+                                <div className="col s12">
+                                    <label htmlFor="address" className="col s12">price
+                                        <input
+                                        defaultValue={this.state.user.price}
+                                        id="price"
+                                        type="number"
+                                        onChange={(e) => this.setState({price: e.target.value})}
                                         />
                                     </label>
                                 </div>
