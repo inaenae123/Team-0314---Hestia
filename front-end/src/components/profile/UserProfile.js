@@ -1,11 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import Avatar from 'react-avatar';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUser } from "../../actions/authActions";
-import Questionnaire from "./Questionnaire";
+import Chip from '@material-ui/core/Chip';
 
 class UserProfile extends Component {
     constructor(props) {
@@ -23,9 +23,14 @@ class UserProfile extends Component {
             listingLocation: '',
             listingOccupancy: 0,
             listingRoomMates: [],
-            price: 0
+            price: 0,
+            tags: [{
+                id: 0,
+                content: 'Clean'
+            }]
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClickAdd = this.handleClickAdd.bind(this);
     }
 
     handleSubmit(e) {
@@ -143,6 +148,24 @@ class UserProfile extends Component {
         });
         console.log("the props are these")
         console.log(this.props.auth);
+    }
+
+    handleClickAdd(e) {
+        e.preventDefault();
+        const tags = this.state.tags.slice();
+        console.log('1')
+        tags.push({id: Math.random() , content: this.input.value});
+        console.log('2')
+        this.setState({tags: tags});
+        console.log('3')
+        this.input.value = '';
+        console.log('4')
+      }
+      
+    handleClickDelete(tag) {
+        console.log(tag)
+        const tags = this.state.tags.filter(t => tag.id !== t.id);
+        this.setState({tags: tags});
     }
     
     render() {
@@ -282,6 +305,32 @@ class UserProfile extends Component {
                                 >
                                 Take Questionnaire
                                 </Link>
+                                <div className="AddAndDelete">
+                                    <h6>Add tags that describe you!</h6>
+                                    {this.state.tags.map((tags) => {
+                                        var content = tags.content;
+                                        var chip = (
+                                            <Chip clickable
+                                                label = {content}
+                                                onDelete={this.handleClickDelete.bind(this, tags)}
+                                            />
+                                        );
+                                        return chip
+                                    })}
+                                    <div className="inputs">
+                                        <input ref={r => this.input = r} style={{display: "inline", maxWidth: "300px", marginRight: "20px"}}/>
+                                        <button onClick={this.handleClickAdd}
+                                            style={{
+                                                width: "60px",
+                                                borderRadius: "3px",
+                                                margin: "10px 10px 0px 0px",
+                                                height: "40px"
+                                            }}
+                                            className="btn btn-large waves-effect waves-light hoverable accent-3">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                         <button
