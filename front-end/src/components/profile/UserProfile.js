@@ -177,16 +177,16 @@ class UserProfile extends Component {
                             <i className="material-icons left">keyboard_backspace</i> Back to Dashboard
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                            <h4>
+                            <h3>
                                 <b>User Profile</b> 
-                            </h4>
+                            </h3>
                         </div>
                         <div className="col s12" style={{textAlign: "center", alignContent: "center"}}>
                             <Avatar color={Avatar.getRandomColor('sitebase', ['red', 'green', 'blue'])} size="100" round/>
                         </div>
                         <form>
                             <div className="generalInfo col s12">
-                                <h5>General Information</h5>
+                                <h4>General Information</h4>
                                 <div className="col s12">
                                     <label htmlFor="name" className="col s12">
                                     Name
@@ -213,7 +213,7 @@ class UserProfile extends Component {
                                 </div>
                             </div>
                             <div className="contactinfo col s12">
-                                <h5>Contact Information</h5>
+                                <h4>Contact Information</h4>
                                 <div className="col s12">
                                     <label htmlFor="email" className="col s12">Email
                                         <input
@@ -237,7 +237,7 @@ class UserProfile extends Component {
                                 </div>
                             </div>
                             <div className="listinginfo col s12">
-                                <h5>Listing Information</h5>
+                                <h4>Listing Information</h4>
                                 <div className="col s12">
                                     <label htmlFor="listingName" className="col s12"> Listing name
                                         <input
@@ -290,18 +290,18 @@ class UserProfile extends Component {
                                 </div>
                             </div>
                             <div className="personality col s12">
-                                <h5>Personality Information</h5>
-                                <h6>You have not taken the questionnaire! Press the button below to take it.</h6>
+                                <h4>Personality Information</h4>
+                                <h6>Press the button below to take the questionnaire</h6>
                                 <Link
                                 to={{
                                     pathname:'/questionnaire', state: {id: this.state.user._id}}}
-                                style={{
+                                    style={{
                                     width: "200px",
                                     borderRadius: "3px",
                                     margin: "20px 0px",
                                     padding: "15px" 
                                 }}
-                                className="btn btn-large waves-effect waves-light hoverable gray accent-3"
+                                className="btn btn-large waves-effect white hoverable black-text"
                                 >
                                 Take Questionnaire
                                 </Link>
@@ -326,7 +326,7 @@ class UserProfile extends Component {
                                                 margin: "10px 10px 0px 0px",
                                                 height: "40px"
                                             }}
-                                            className="btn btn-large waves-effect waves-light hoverable accent-3">
+                                            className="btn btn-large waves-effect white hoverable black-text">
                                             Add
                                         </button>
                                     </div>
@@ -337,12 +337,14 @@ class UserProfile extends Component {
                                 style={{
                                 width: "160px",
                                 borderRadius: "3px",
-                                margin: "10px 10px 0px 0px"
+                                margin: "10px 10px 0px 0px",
+                                backgroundColor: "#FFDF8E",
+                                borderColor: "#FFDF8E" 
                                 }}
                                 value='Submit'
                                 type='submit'
                                 onClick={this.handleSubmit}
-                                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                className="btn btn-large waves-effect waves-light hoverable accent-3"
                             >
                                 Update Profile
                             </button>

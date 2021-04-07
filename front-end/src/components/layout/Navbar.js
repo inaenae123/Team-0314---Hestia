@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../../Hestia_Logo_Backgroundless.png";
 
 class Navbar extends Component {
 
@@ -15,7 +16,7 @@ class Navbar extends Component {
               }}
               className="col s5 brand-logo center black-text"
             >
-              Hestia
+              <img src={Logo} style={{width: "6%"}}/>
             </Link>
           </div>
         </nav>

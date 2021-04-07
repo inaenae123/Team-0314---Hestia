@@ -137,12 +137,14 @@ class Questionnaire extends Component {
                                 style={{
                                 width: "180px",
                                 borderRadius: "3px",
-                                margin: "10px 10px 0px 0px"
+                                margin: "10px 10px 0px 0px",
+                                backgroundColor: "#FFDF8E",
+                                borderColor: "#FFDF8E" 
                                 }}
                                 value='Submit'
                                 type='submit'
                                 onClick={this.handleSubmit}
-                                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                className="btn btn-large waves-effect waves-light hoverable"
                             >
                                 Submit Questionnaire
                         </button>
