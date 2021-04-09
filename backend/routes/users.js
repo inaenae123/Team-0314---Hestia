@@ -94,7 +94,7 @@ router.post("/addListing", async (req, res) => {
     const savedListing = await listing.save();
     res.json({ error: null, data: savedListing });
 
-    console.log("this is the saved listing" + savedListing)
+    console.log("saved listing" + savedListing)
     console.log("this is the response" + res.data)
   } catch (error) {
     res.status(400).json({ error });
@@ -135,10 +135,12 @@ router.put("/user", async (req, res) => {
     listingName: req.body.listingName,
     listingLocation : req.body.listingLocation,
     listingOccupancy: req.body.listingOccupancy,
-    listingRoomMates: req.body.listingRoomMates
+    listingRoomMates: req.body.listingRoomMates,
+    tags: req.body.tags
+
   });
   let doc = await User.findOneAndUpdate({ "_id": req.body._id }, 
-  { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
+  { "$set": { "name": user.name, "about_me" : user.about_me, "roommates": user.roommates, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates, "tags": user.tags}}, {new: true});
   await doc.save();
 
 });

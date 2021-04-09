@@ -49,6 +49,10 @@ const UserSchema = new Schema({
   listingRoomMates: {
     type: String,
     required: false
+  },
+  tags: {
+    type: Array,
+    required: false
   }
 });
 module.exports = User = mongoose.model("users", UserSchema);

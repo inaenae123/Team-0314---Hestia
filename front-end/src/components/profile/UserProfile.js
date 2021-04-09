@@ -67,6 +67,10 @@ class UserProfile extends Component {
         if (this.state.listingRoomMates == '') {
             this.state.listingRoomMates = this.state.user.listingRoomMates;
         }
+        if (this.state.tags == []) {
+            this.state.tags = this.state.user.tags;
+        }
+        
         console.log(this.state.name)
         console.log("the listingName is " + this.state.listingName)
         var updatedUser = {
@@ -80,7 +84,8 @@ class UserProfile extends Component {
             listingName: this.state.listingName,
             listingLocation: this.state.listingLocation,
             listingOccupancy: this.state.listingOccupancy,
-            listingRoomMates: this.state.listingRoomMates
+            listingRoomMates: this.state.listingRoomMates,
+            tags: this.state.tags
         };
 
         console.log(updatedUser)
@@ -153,13 +158,38 @@ class UserProfile extends Component {
     handleClickAdd(e) {
         e.preventDefault();
         const tags = this.state.tags.slice();
-        console.log('1')
         tags.push({id: Math.random() , content: this.input.value});
-        console.log('2')
         this.setState({tags: tags});
-        console.log('3')
+    
+        console.log("the tags are \n")
+        console.log(this.state)
         this.input.value = '';
-        console.log('4')
+        var updatedUser = {
+            _id: this.state.user._id,
+            name: this.state.name,
+            email: this.state.email,
+            address: this.state.address,
+            roommates: this.state.roommates,
+            phone_number: this.state.phone,
+            about_me: this.state.about,
+            listingName: this.state.listingName,
+            listingLocation: this.state.listingLocation,
+            listingOccupancy: this.state.listingOccupancy,
+            listingRoomMates: this.state.listingRoomMates,
+            tags: this.state.tags
+        };
+
+        console.log(updatedUser)
+        axios.put('http://localhost:3000/api/user', updatedUser)
+            .then(response => { 
+                console.log(updatedUser)
+                console.log(response)          
+                this.setState({user: response.data}) // get age, name and other data from response and set 
+                                  //  the states here respectively 
+            })
+            .catch(error => error);
+        console.log("this is the current tags")
+        console.log(this.state.tags)
       }
       
     handleClickDelete(tag) {
@@ -196,7 +226,7 @@ class UserProfile extends Component {
                                         id="name"
                                         name="name"
                                         type="text"
-                                        onChange={this.handleChange}
+                                        onChange={(e) => this.setState({name: e.target.value})}
                                         />
                                     </label>
                                 </div>
@@ -308,6 +338,8 @@ class UserProfile extends Component {
                                 <div className="AddAndDelete">
                                     <h6>Add tags that describe you!</h6>
                                     {this.state.tags.map((tags) => {
+                                        console.log("in the tags mapping part")
+                                        console.log(this.state.user)
                                         var content = tags.content;
                                         var chip = (
                                             <Chip clickable
@@ -315,6 +347,8 @@ class UserProfile extends Component {
                                                 onDelete={this.handleClickDelete.bind(this, tags)}
                                             />
                                         );
+                                        console.log("the current tags are")
+                                        console.log(this.state.user.tags)
                                         return chip
                                     })}
                                     <div className="inputs">
