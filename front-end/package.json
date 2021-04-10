@@ -2,6 +2,7 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "3box-profile-edit-react": "0.0.9",
     "@babel/core": "7.12.3",

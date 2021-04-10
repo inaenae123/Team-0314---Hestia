@@ -19,9 +19,9 @@ mongoose.connect(mongoDB,{ useNewUrlParser: true, useUnifiedTopology: true},
 
 //These functions ensure that the database is indeed succesfully connected and throws an error message otehrwise
 const mondb = mongoose.connection;
-mondb.on('error',function (err) {  
+mondb.on('error',function (err) {
   console.log('Mongoose default connection error: ' + err);
-}); 
+});
 mondb.once('open', function() {
     console.log("Labra database connection established successfully");
 });
@@ -46,7 +46,6 @@ app.use(express.json()); // for body parser
 //connects Mainsite and Database Labra
 app.use("/api", userRoutes);
 //connects express() to our html site on port 3000
-app.listen(PORT, () => 
+app.listen(PORT, () =>
   console.log("Server is up and listening on Port: " + PORT)
 );
-
