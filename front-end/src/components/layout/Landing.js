@@ -8,12 +8,12 @@ class Landing extends Component {
       <div style={{ paddingTop: "80px" }} className="container">
         <div className="row">
           <div className="col s12 center-align">
-            <h2>
+            <h1>
               Welcome to Hestia!
-            </h2>
-            <p className="flow-text grey-text text-darken-1">
-              Sign up or login to find your perfect sublease or roommate match!
-            </p>
+            </h1>
+            <h5 className="grey-text text-darken-1" style={{fontFamily: "monospace", fontSize: "18px"}}>
+              Sign up or login to find your perfect sublease or roommate match.
+            </h5>
             <br />
             <div style={{textAlign: "center", alignContent: "center"}}>
               <Link
@@ -22,9 +22,11 @@ class Landing extends Component {
                   width: "140px",
                   borderRadius: "3px",
                   margin: "20px",
-                  padding: "15px" 
+                  padding: "15px",
+                  backgroundColor: "#FFDF8E",
+                  borderColor: "#FFDF8E" 
                 }}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                className="btn btn-large waves-effect waves-light hoverable accent-3"
               >
                 Register
               </Link>

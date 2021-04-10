@@ -15,7 +15,8 @@ import "./App.css";
 import { Provider } from "react-redux";
 import store from "./store";
 import UserProfile from "./components/profile/UserProfile";
-import Listings from "./components/listings/Listings";
+import Questionnaire from "./components/profile/Questionnaire";
+import Room from "./components/rooms/Room";
 import Profiles from "./components/listings/Profiles";
 import Rooms from "./components/rooms/Rooms";
 
@@ -54,9 +55,10 @@ class App extends Component {
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/userprofile" component={UserProfile} />
-              <Route exact path="/listings" component={Listings} />
+              <Route exact path="/questionnaire" component={Questionnaire} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/rooms" component={Rooms} />
+              <Route exact path="/room" component={Room} />
           </Switch>
         </div>
       </Router>

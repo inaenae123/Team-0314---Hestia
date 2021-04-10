@@ -20,9 +20,9 @@ render() {
       <div style={{ paddingTop: "80px" }} className="container">
         <div className="row">
           <div className="col s12 center-align">
-            <h4>
-              <b>Hey there,</b> {user.name.split(" ")[0]}
-            </h4>
+            <h2>
+              <b>Hey there,</b> {user.name.split(" ")[0]}<b>!</b>
+            </h2>
             <div style={{textAlign: "center", alignContent: "center"}}>
               <Link
                   to="/userprofile"
@@ -30,9 +30,11 @@ render() {
                     width: "150px",
                     borderRadius: "3px",
                     margin: "20px",
-                    padding: "14px" 
+                    padding: "14px",
+                    backgroundColor: "#FFDF8E",
+                    borderColor: "#FFDF8E" 
                   }}
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable accent-3"
                 >
                   My Profile
               </Link>
@@ -48,9 +50,9 @@ render() {
                 Logout
               </button>
             </div>
-            <p style={{fontSize:"20px", paddingTop:"10pt"}} className="flow-text grey-text text-darken-1">
+            <h4 style={{fontSize:"20px", paddingTop:"10pt", fontFamily: "monospace"}}>
                 Do you want to...
-            </p>
+            </h4>
             <div style={{textAlign: "center", alignContent: "center"}}>
               <Link
                   to="/profiles"
@@ -58,9 +60,10 @@ render() {
                     width: "160px",
                     borderRadius: "3px",
                     margin: "20px",
-                    padding: "14px" 
+                    padding: "14px",
+                    backgroundColor: "#FFFB9B", color: "black", borderColor: "#FFFB9B"
                   }}
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable accent-3"
                 >
                   Go to Profiles
                 </Link>
@@ -70,9 +73,10 @@ render() {
                     width: "160px",
                     borderRadius: "3px",
                     margin: "20px",
-                    padding: "14px" 
+                    padding: "14px",
+                    backgroundColor: "#FFFB9B", color: "black", borderColor: "#FFFB9B" 
                   }}
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable accent-3"
                 >
                   Go to Listings
                 </Link>
