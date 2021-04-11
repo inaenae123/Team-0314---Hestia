@@ -14,16 +14,23 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { getUser } from "../../actions/authActions";
 import Checkbox from '@material-ui/core/Checkbox';
+import Dialog from '@material-ui/core/Dialog';
 import axios from "axios";
 
 class Room extends Component {
     constructor(props) {
         super(props);
         this.state = { open : false };
-
+        this.state = {checked : false};
+        this.state = { thanks : false };
+        this.state = {popup : false};
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.signAgreement = this.signAgreement.bind(this);
+        this.handleOpen2 = this.handleOpen2.bind(this);
+        this.handleClose2 = this.handleClose2.bind(this);
+        this.handleClose3 = this.handleClose3.bind(this);
+        this.checked = this.checked.bind(this);
     }
 
     componentDidMount() { 
@@ -137,7 +144,21 @@ class Room extends Component {
                                                 <Button color="secondary" variant="contained" onClick={this.signAgreement}>Sign Agreement</Button>
                                             </Box>
                                         </Grid>
-                                        </Modal>
+                                        </Modal>   
+                                        <Dialog open={this.state.thanks} onClose={this.handleClose2}> 
+                                        <Paper>
+                                            <h1>
+                                                Thank you for signing the leasing agreement :)
+                                            </h1>
+                                        </Paper>
+                                        </Dialog>
+                                        <Dialog open={this.state.popup} onClose={this.handleClose2}> 
+                                        <Paper>
+                                            <h1>
+                                                Please check box agreeing to all terms beforing signing
+                                            </h1>
+                                        </Paper>
+                                        </Dialog>
                                 </Grid>
                             </Grid>
                     </div>
@@ -150,13 +171,29 @@ handleOpen() {
     console.log('handleOpen called');
     this.setState({open : true});
 };
-
+checked() {
+    console.log('chechked called');
+    this.setState({checked : true});
+}
+handleOpen2() {
+  console.log('handleOpen2 called');
+    this.setState({thanks : true});
+};
 handleClose() {
     console.log('handleClose called');
     this.setState({open : false});
 };
+handleClose2() {
+    console.log('handleClose2 called');
+    this.setState({thanks : false});
+};
+handleClose3() {
+    console.log('handleClose3 called');
+    this.setState({popup : false});
+};
 signAgreement() {
-    const { user } = this.props.auth;
+    
+        const { user } = this.props.auth;
         console.log("the user is " + user);
 
         axios.post('/api/signLease', {
@@ -167,8 +204,13 @@ signAgreement() {
             console.log(user);
             console.log(user.signed)
         });
+        this.handleClose();
+        this.handleOpen2();
         console.log("the props are these")
         console.log(this.props.auth);
+        
+        
+        
 };
 
 // const mapStateToProps = state => ({
