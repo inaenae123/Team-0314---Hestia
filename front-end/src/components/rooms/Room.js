@@ -26,7 +26,7 @@ class Room extends Component {
 
     componentDidMount() { 
         const { user } = this.props.auth;
-        console.log("the user is " + user.id);
+        console.log(user);
     }
     render() {
         //const { user } = this.props;
