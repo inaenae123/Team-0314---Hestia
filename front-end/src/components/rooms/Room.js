@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { getUser } from "../../actions/authActions";
+import axios from "axios";
 
 class Room extends Component {
     constructor(props) {
@@ -19,11 +21,15 @@ class Room extends Component {
 
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.signAgreement = this.signAgreement.bind(this);
     }
 
-    
+    componentDidMount() { 
+        const { user } = this.props.auth;
+        console.log("the user is " + user.id);
+    }
     render() {
-        // const { user } = this.props;
+        //const { user } = this.props;
         console.log(this.props);
         return (
             <div className="container" style={{paddingTop: "30px"}}>
@@ -65,9 +71,7 @@ class Room extends Component {
                                 <Grid item xs={12} spacing={3}>
                                     <Button variant="contained" onClick={this.handleOpen}>Access Leasing Agreement</Button>
                                         <Modal open={this.state.open} onClose={this.handleClose}>
-                                            <div>  
-                                                Hello
-                                            </div>
+                                            <Button variant="contained" onClick={this.signAgreement}>Sign Agreement</Button>
                                         </Modal>
                                 </Grid>
                             </Grid>
@@ -86,11 +90,39 @@ handleClose() {
     console.log('handleClose called');
     this.setState({open : false});
 };
+signAgreement() {
+    const { user } = this.props.auth;
+        console.log("the user is " + user);
+
+        axios.post('/api/signLease', {
+                userId: user.id,
+        })
+        .then(res => {
+            console.log(res);
+            console.log(user);
+            console.log(user.signed)
+        });
+        console.log("the props are these")
+        console.log(this.props.auth);
+};
+
 // const mapStateToProps = state => ({
 //     auth: state.auth,
 //     errors: state.errors
 // });
 
 }
-
-export default Room;
+Room.propTypes = {
+    getUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+  
+const mapStateToProps = state => ({
+auth: state.auth,
+errors: state.errors
+});
+  
+export default connect(
+mapStateToProps,
+{getUser}
+)(withRouter(Room));

@@ -25,6 +25,18 @@ router.get("/listing", (req, res) => {
     });  
 });
 
+router.post("/signLease", async (req, res) => {
+  try {
+    console.log("the req body is " + req.body.userId)
+    let user = await User.findOneAndUpdate({ "_id": req.body.userId }, 
+    { "$set": {"signed": true}}, {new: true});
+    //await user.save();
+    res.json({error : false})
+  } catch(error) {
+    res.status(400).json({ error });
+  }
+});
+
 router.get("/questionnaire", (req, res) => {
   console.log("I received a GET request")
     Questionnaire.find({},function(err, docs){
