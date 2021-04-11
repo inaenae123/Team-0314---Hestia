@@ -24,10 +24,7 @@ class UserProfile extends Component {
             listingOccupancy: 0,
             listingRoomMates: [],
             price: 0,
-            tags: [{
-                id: 0,
-                content: 'Clean'
-            }]
+            tags: []
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
@@ -93,8 +90,7 @@ class UserProfile extends Component {
             .then(response => { 
                 console.log(updatedUser)
                 console.log(response)          
-                this.setState({user: response.data}) // get age, name and other data from response and set 
-                                  //  the states here respectively 
+                this.setState({user: response.data}) 
             })
             .catch(error => error);  
 
@@ -137,8 +133,6 @@ class UserProfile extends Component {
 
     componentDidMount() {
         const { user } = this.props.auth;
-        
-        console.log("the user is " + user);
 
         axios.get('/api/userprofile', {
             params : {
@@ -150,9 +144,11 @@ class UserProfile extends Component {
             this.setState({user: res.data});
             console.log(this.state.user)
             console.log(this.state.user.about_me)
+            console.log(this.state.user.tags);
+            this.setState({tags: res.data.tags});
+            console.log(this.state.tags);
         });
-        console.log("the props are these")
-        console.log(this.props.auth);
+
     }
 
     handleClickAdd(e) {
@@ -162,32 +158,32 @@ class UserProfile extends Component {
         this.setState({tags: tags});
     
         console.log("the tags are \n")
-        console.log(this.state)
-        this.input.value = '';
-        var updatedUser = {
-            _id: this.state.user._id,
-            name: this.state.name,
-            email: this.state.email,
-            address: this.state.address,
-            roommates: this.state.roommates,
-            phone_number: this.state.phone,
-            about_me: this.state.about,
-            listingName: this.state.listingName,
-            listingLocation: this.state.listingLocation,
-            listingOccupancy: this.state.listingOccupancy,
-            listingRoomMates: this.state.listingRoomMates,
-            tags: this.state.tags
-        };
+        console.log(this.state.tags)
+        // this.input.value = '';
+        // var updatedUser = {
+        //     _id: this.state.user._id,
+        //     name: this.state.name,
+        //     email: this.state.email,
+        //     address: this.state.address,
+        //     roommates: this.state.roommates,
+        //     phone_number: this.state.phone,
+        //     about_me: this.state.about,
+        //     listingName: this.state.listingName,
+        //     listingLocation: this.state.listingLocation,
+        //     listingOccupancy: this.state.listingOccupancy,
+        //     listingRoomMates: this.state.listingRoomMates,
+        //     tags: this.state.tags
+        // };
 
-        console.log(updatedUser)
-        axios.put('http://localhost:3000/api/user', updatedUser)
-            .then(response => { 
-                console.log(updatedUser)
-                console.log(response)          
-                this.setState({user: response.data}) // get age, name and other data from response and set 
-                                  //  the states here respectively 
-            })
-            .catch(error => error);
+        // console.log(updatedUser)
+        // axios.put('http://localhost:3000/api/user', updatedUser)
+        //     .then(response => { 
+        //         console.log(updatedUser)
+        //         console.log(response)          
+        //         this.setState({user: response.data}) // get age, name and other data from response and set 
+        //                           //  the states here respectively 
+        //     })
+        //     .catch(error => error);
         console.log("this is the current tags")
         console.log(this.state.tags)
       }

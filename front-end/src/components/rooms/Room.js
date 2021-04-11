@@ -1,23 +1,31 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
-import classnames from "classnames";
-import Box from '@material-ui/core/Box';
+import { Link } from "react-router-dom";
+import axios from "axios";
 import { Grid } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 
 class Room extends Component {
-    constructor() {
-        super();
-      }
+    constructor(props) {
+        super(props);
+        this.state = {
+            listing: [],
+        }
+    }
     
+    componentDidMount() {
+        //Receives listing from api
+        axios.get('/api/listing', {
+        })
+        .then(res => {
+            for (let i = 0; i < res.data.length; i++) {
+                if (res.data[i]._id === this.props.match.params.id) {
+                    this.setState({listing: res.data[i]});
+                }
+            }
+        });
+    }
+
     render() {
-        // const { user } = this.props;
-        console.log(this.props);
         return (
             <div className="container" style={{paddingTop: "30px"}}>
                 <div className="row" style={{padding: "0px 20%"}}>
@@ -26,19 +34,22 @@ class Room extends Component {
                             <i className="material-icons left">keyboard_backspace</i> Back to All Room Listings
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                            <h4>
-                                <b>Listing</b> 
-                            </h4>
+                           
                         </div>
                         <div style={{justifyContent: "center", textAlign: "center", margin: "20px"}}>
+                            <h3>
+                                <b>{this.state.listing.name}</b> 
+                            </h3>
                             <img src="https://cdn2.atlantamagazine.com/wp-content/uploads/sites/4/2015/11/1115_homepark05_cck_oneuseonly.jpg" height="200px" width="200px"/>
                         </div>
                             <Grid container spacing={3}>
                                 <Grid item xs={12} spacing={3}>
-                                    <Paper>Address: 1234 Mainstreet Anywhere USA 10000</Paper>
+                                    <h4>Address:</h4>
+                                    <h6>{this.state.listing.location}</h6>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
-                                    <Paper>Rent: $1400</Paper>
+                                    <h4>Price:</h4>
+                                    <h6>${this.state.listing.price}</h6>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
                                     <Paper>Bed: 4</Paper>
@@ -47,7 +58,8 @@ class Room extends Component {
                                     <Paper>Bath: 2</Paper>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
-                                    <Paper>Current Occupants: John Smith</Paper>
+                                    <h4>Occupancy:</h4>
+                                    <h6>{this.state.listing.Occupancy}</h6>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
                                     <Paper>Additional Information/Policies: At Camden, your pets are family too! We welcome cats and dogs, up to 3 pets per apartment home, with no pet weight limit. Call us with any pet-related questions! Restricted breeds: American Pit Bull Terrier, American Staffordshire Terrier, Staffordsh </Paper>
@@ -62,10 +74,5 @@ class Room extends Component {
         );
     }
 }
-
-// const mapStateToProps = state => ({
-//     auth: state.auth,
-//     errors: state.errors
-// });
 
 export default Room;

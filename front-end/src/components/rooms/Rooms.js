@@ -132,7 +132,7 @@ class Rooms extends Component {
                         var extra = ( <div> <Icon name='user'/> {occupancy} </div>);
                         var price = "Price: $" + listing.price;
                         var card = (
-                            <Link to="/room" style={{margin: '20px', justifyContent: 'center'}}>
+                            <Link to={{pathname: `/room/${listing._id}`}} style={{margin: '20px', justifyContent: 'center'}}>
                                 <Card centered
                                     link
                                     image='https://cdn2.atlantamagazine.com/wp-content/uploads/sites/4/2015/11/1115_homepark05_cck_oneuseonly.jpg'
