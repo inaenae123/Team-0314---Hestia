@@ -11,7 +11,9 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
 import { getUser } from "../../actions/authActions";
+import Checkbox from '@material-ui/core/Checkbox';
 import axios from "axios";
 
 class Room extends Component {
@@ -70,8 +72,71 @@ class Room extends Component {
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
                                     <Button variant="contained" onClick={this.handleOpen}>Access Leasing Agreement</Button>
-                                        <Modal open={this.state.open} onClose={this.handleClose}>
-                                            <Button variant="contained" onClick={this.signAgreement}>Sign Agreement</Button>
+                                        <Modal style = {{padding: "50px 400px"}} open={this.state.open} onClose={this.handleClose}>
+                                        <Grid item xs={12} spacing={3}>
+                                            <Paper>
+                                            <h1>
+                                                Leasing Agreement
+                                            </h1>
+                                            </Paper>
+                                            <Paper>
+                                                Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
+                                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                                                aliquip ex ea commodo consequat.
+                                            </Paper>
+                                            <Box display="flex" flexDirection="column" >
+                                                <Paper>
+                                                    <form noValidate autoComplete="off">
+                                                    <TextField id="filled-basic" label="Name" variant="filled" />
+                                                    <TextField id="filled-basic" label="Date" variant="filled" />
+                                                    <h3>
+                                                        I agree to all terms and conditions listed above
+                                                    </h3>
+                                                    <Checkbox
+                                                    defaultChecked
+                                                    color="primary"
+                                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                                    />
+                                                    </form>
+                                                </Paper>
+                                                <Button color="secondary" variant="contained" onClick={this.signAgreement}>Sign Agreement</Button>
+                                            </Box>
+                                        </Grid>
                                         </Modal>
                                 </Grid>
                             </Grid>
