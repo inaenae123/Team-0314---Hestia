@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { Grid } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -11,7 +11,9 @@ import TextField from '@material-ui/core/TextField';
 import { getUser } from "../../actions/authActions";
 import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
-import axios from "axios";
+import Box from '@material-ui/core/Box';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class Room extends Component {
     constructor(props) {
@@ -207,6 +209,7 @@ class Room extends Component {
         );
     }
 
+
 handleOpen() {
     console.log('handleOpen called');
     this.setState({open : true});
@@ -285,8 +288,9 @@ auth: state.auth,
 errors: state.errors
 });
 // check which export needed !! TO Do 
-//export default connect(
-//mapStateToProps,
-//{getUser}
-//)(withRouter(Room));
-export default Room;
+export default connect(
+mapStateToProps,
+{getUser}
+)(withRouter(Room));
+// }
+// export default Room;
