@@ -41,6 +41,14 @@ const ListingSchema = new Schema({
   bath: {
     type: Number,
     required: false
+  },
+  totalRatingSum: {
+    type: Number,
+    default : 0
+  },
+  numRatings: {
+    type: Number,
+    default : 0
   }
 });
 module.exports = Listing = mongoose.model("listings", ListingSchema);

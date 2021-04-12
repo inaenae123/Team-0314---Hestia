@@ -53,6 +53,10 @@ const UserSchema = new Schema({
   tags: {
     type: Array,
     required: false
+  },
+  signed: {
+    type: Boolean,
+    default: false
   }
 });
 module.exports = User = mongoose.model("users", UserSchema);
