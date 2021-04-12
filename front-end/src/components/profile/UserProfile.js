@@ -101,7 +101,11 @@ class UserProfile extends Component {
                 location: this.state.listingLocation,
                 Occupancy: this.state.listingOccupancy,
                 roomMates: this.state.listingRoomMates,
-                price: this.state.price
+                price: this.state.price,
+                policies: this.state.policies,
+                description: this.state.description,
+                bed: this.state.bed,
+                bath: this.state.bath
             };
         
         if (this.state.listing.length == 0) {
