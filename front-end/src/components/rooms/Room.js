@@ -24,13 +24,17 @@ class Room extends Component {
         this.state = {checked : false};
         this.state = { thanks : false };
         this.state = {popup : false};
+        this.state = {review : false};
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.signAgreement = this.signAgreement.bind(this);
         this.handleOpen2 = this.handleOpen2.bind(this);
         this.handleClose2 = this.handleClose2.bind(this);
         this.handleClose3 = this.handleClose3.bind(this);
+        this.handleClose4 = this.handleClose4.bind(this);
         this.checked = this.checked.bind(this);
+        this.unchecked = this.unchecked.bind(this);
+        this.leaveReview = this.leaveReview.bind(this);
     }
 
     componentDidMount() { 
@@ -57,6 +61,20 @@ class Room extends Component {
                         </div>
                             <Grid container spacing={3}>
                                 <Grid item xs={12} spacing={3}>
+                                <Box display="flex" flexDirection="column" >
+                                    <h3> Rating : 3/5 (Static rn, need endpoint to get listing totalSum/ numratingCount)</h3>
+                                    <Button color="primary" variant="contained" onClick={this.leaveReview}>Leave a Review</Button>
+                                </Box>
+                                <Dialog open={this.state.review} onClose={this.handleClose4}> 
+                                        <Paper>
+                                            <h1>
+                                                Leave Review
+                                            </h1>
+                                            <TextField id="filled-basic" label="Review out of 5" variant="filled" />
+                                        </Paper>
+                                </Dialog>  
+                                </Grid>
+                                <Grid item xs={12} spacing={3}>
                                     <Paper>Address: 1234 Mainstreet Anywhere USA 10000</Paper>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
@@ -78,7 +96,7 @@ class Room extends Component {
                                     <Paper>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </Paper>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
-                                    <Button variant="contained" onClick={this.handleOpen}>Access Leasing Agreement</Button>
+                                    <Button variant="contained" color = "primary" onClick={this.handleOpen}>Access Leasing Agreement</Button>
                                         <Modal style = {{padding: "50px 400px"}} open={this.state.open} onClose={this.handleClose}>
                                         <Grid item xs={12} spacing={3}>
                                             <Paper>
@@ -136,6 +154,8 @@ class Room extends Component {
                                                     </h3>
                                                     <Checkbox
                                                     defaultChecked
+                                                    //checked = {this.checked}
+                                                    //onChange = {this.unchecked}
                                                     color="primary"
                                                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                                                     />
@@ -152,7 +172,7 @@ class Room extends Component {
                                             </h1>
                                         </Paper>
                                         </Dialog>
-                                        <Dialog open={this.state.popup} onClose={this.handleClose2}> 
+                                        <Dialog open={this.state.popup} onClose={this.handleClose3}> 
                                         <Paper>
                                             <h1>
                                                 Please check box agreeing to all terms beforing signing
@@ -171,9 +191,18 @@ handleOpen() {
     console.log('handleOpen called');
     this.setState({open : true});
 };
+leaveReview() {
+    console.log('leavereview called');
+    this.setState({review : true});
+}
 checked() {
     console.log('chechked called');
     this.setState({checked : true});
+    this.setState({popup : false});
+}
+unchecked() {
+    console.log('unchechked called');
+    this.setState({checked : false});
 }
 handleOpen2() {
   console.log('handleOpen2 called');
@@ -191,8 +220,12 @@ handleClose3() {
     console.log('handleClose3 called');
     this.setState({popup : false});
 };
+handleClose4() {
+    console.log('handleClose3 called');
+    this.setState({review : false});
+};
 signAgreement() {
-    
+    //if(this.state.checked == true) {
         const { user } = this.props.auth;
         console.log("the user is " + user);
 
@@ -208,8 +241,10 @@ signAgreement() {
         this.handleOpen2();
         console.log("the props are these")
         console.log(this.props.auth);
-        
-        
+    //}
+    //else {
+    //    this.setState({popup : true});
+    //}     
         
 };
 
