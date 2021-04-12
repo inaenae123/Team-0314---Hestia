@@ -37,18 +37,11 @@ router.get("/currentListing", (req, res) => {
   //console.log(req);
   let currentListing;
   Listing.find({},function(err, docs){
-    console.log(req.query);
     for(let r = 0; r < docs.length; r++) {
-      console.log("first arg")
-      console.log(docs[r])
-      console.log("second arg")
-      console.log(req.query.id)
       if(docs[r].id == req.query.id) {
         currentListing = docs[r];
-        console.log(docs[r]);
       }
     }
-    console.log(currentListing);
     res.json(currentListing);
 });
   console.log("Returned listing");
@@ -88,14 +81,15 @@ router.post("/addListing", async (req, res) => {
     location: req.body.location,
     Occupancy: req.body.Occupancy,
     roomMates: req.body.roomMates, 
-    price: req.body.price
+    price: req.body.price,
+    policies: req.body.policies,
+    description: req.body.description,
+    bed: req.body.bed,
+    bath: req.body.bath
   });
   try {
     const savedListing = await listing.save();
     res.json({ error: null, data: savedListing });
-
-    console.log("this is the saved listing" + savedListing)
-    console.log("this is the response" + res.data)
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -165,7 +159,12 @@ router.put("/updateListing", async (req, res) => {
     location: req.body.location,
     Occupancy: req.body.Occupancy,
     roomMates: req.body.roomMates,
-    price: req.body.price
+    price: req.body.price,
+    policies: req.body.policies,
+    description: req.body.description,
+    bed: req.body.bed,
+    bath: req.body.bath
+
   });
   console.log("the req body is " + req.body.name)
   let doc = await Listing.findOneAndUpdate({ "_id": req.body._id }, 

@@ -21,6 +21,22 @@ const ListingSchema = new Schema({
   price: {
     type: Number,
     required: true
+  },
+  policies: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String, 
+    required: true
+  },
+  bed: {
+    type: Number,
+    required: false
+  },
+  bath: {
+    type: Number,
+    required: false
   }
 });
 module.exports = Listing = mongoose.model("listings", ListingSchema);
