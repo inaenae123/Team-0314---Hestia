@@ -153,7 +153,7 @@ class Room extends Component {
                                                         I agree to all terms and conditions listed above
                                                     </h3>
                                                     <Checkbox
-                                                    defaultChecked
+                                                    //defaultChecked
                                                     //checked = {this.checked}
                                                     //onChange = {this.unchecked}
                                                     color="primary"
