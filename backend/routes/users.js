@@ -83,27 +83,37 @@ router.get("/userprofile", (req, res) => {
 // @access Public
 router.post("/addListing", async (req, res) => {
   console.log("I received a post request")
-  const listing = new Listing({
+  const update = ({
+    userId: req.body.userId,
     name: req.body.name,
     location: req.body.location,
     Occupancy: req.body.Occupancy,
     roomMates: req.body.roomMates, 
     price: req.body.price
   });
+  let doc = await Listing.findOneAndUpdate({ userId: req.body.userId }, update, {new: true, upsert: true});
   try {
-    const savedListing = await listing.save();
+    const savedListing = await doc.save();
     res.json({ error: null, data: savedListing });
 
     console.log("saved listing" + savedListing)
     console.log("this is the response" + res.data)
   } catch (error) {
-    res.status(400).json({ error });
+    console.log("FUCK");
+    console.log(error);
+    const room = new Listing(update);
+    try {
+      const savedListing = await room.save();
+      res.json({ error: null, data: savedListing });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
   }
 });
 
 router.post("/addQuestionnaire", async (req, res) => {
-  console.log("I received a post request")
-  const question = new Questionnaire({
+  console.log("I received a Questionaire request")
+  const update = {
     userId: req.body.userId,
     answer1: req.body.answer1,
     answer2: req.body.answer2,
@@ -111,12 +121,22 @@ router.post("/addQuestionnaire", async (req, res) => {
     answer4: req.body.answer4,
     answer5: req.body.answer5,
     answer6: req.body.answer6
-  });
-  try {
-    const savedQuestionnaire = await question.save();
-    res.json({ error: null, data: savedQuestionnaire });
+  };
+   let doc = await Questionnaire.findOneAndUpdate({ userId: req.body.userId }, update, {new: true, upsert: true});
+   try {
+    const existingQuestionnaire =  await doc.save();
+    res.json({ error: null, data: existingQuestionnaire });
+    console.log("YAY");
   } catch (error) {
-    res.status(400).json({ error });
+    console.log("FUCK");
+    console.log(error);
+    const question = new Questionnaire(update);
+    try {
+      const savedQuestionnaire = await question.save();
+      res.json({ error: null, data: savedQuestionnaire });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
   }
 });
 
@@ -155,7 +175,7 @@ router.put("/questionnaire", async (req, res) => {
     answer5: req.body.answer5,
     answer6: req.body.answer6
   });
-  let doc = await Questionnaire.findOneAndUpdate({ "_id": req.body.user }, 
+  let doc = await Questionnaire.findOneAndUpdate({ "_id" : req.body._id }, 
   { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
   await doc.save();
 
@@ -163,6 +183,7 @@ router.put("/questionnaire", async (req, res) => {
 
 router.put("/updateListing", async (req, res) => {
   const listing = new Listing({
+    userId: req.body.userId,
     name: req.body.name,
     location: req.body.location,
     Occupancy: req.body.Occupancy,
@@ -173,7 +194,6 @@ router.put("/updateListing", async (req, res) => {
   let doc = await Listing.findOneAndUpdate({ "_id": req.body._id }, 
   { "$set": {"name": listing.name, "location": listing.location, "Occupancy": listing.Occupancy, "roomMates": listing.roomMates}}, {new: true});
   await doc.save();
-
 });
 
 // @route POST api/users/login

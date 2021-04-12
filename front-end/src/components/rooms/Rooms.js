@@ -12,7 +12,8 @@ class Rooms extends Component {
         super(props);
         this.state = {
             listings: [],
-            filter: []
+            filter: [],
+            userId: this.props.location.state.id
         }
         this.compareOccupancy = this.compareOccupancy.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -21,6 +22,7 @@ class Rooms extends Component {
         this.handlePriceHighToLow = this.handlePriceHighToLow.bind(this);
         this.comparePriceLowtoHigh = this.comparePriceLowtoHigh.bind(this);
         this.handlePriceLowToHigh = this.handlePriceLowToHigh.bind(this);
+        console.log(this.props.location.state.id);
       }
 
     // Method used to sort through Occupancies

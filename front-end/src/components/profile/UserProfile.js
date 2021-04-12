@@ -95,7 +95,8 @@ class UserProfile extends Component {
             .catch(error => error);  
 
             var updatedListing = {
-                _id: this.state.listing._id,
+                //_id: this.state.listing._id,
+                userId: this.state.user._id,
                 name: this.state.listingName,
                 location: this.state.listingLocation,
                 Occupancy: this.state.listingOccupancy,
@@ -105,19 +106,19 @@ class UserProfile extends Component {
         
         if (this.state.listing.length == 0) {
             console.log("first")
-            console.log("the listing id is " + this.state.listing.id)
+            console.log("the listing id is " + this.state.listing.userId)
             console.log("the listing is " + this.state.listing)
             axios.post('http://localhost:3000/api/addListing', updatedListing)
             .then(response => {        
                 this.setState({listing: response.data}) 
-                console.log("this is the response data" + response.data.id)
+                console.log("this is the response data" + response.data.userId)
             })
             .catch(error => error); 
-            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listin id is " + this.state.listing.userId)
             console.log("the listing is " + this.state.listing)
         } else {
             console.log("second")
-            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listin id is " + this.state.listing.userId)
             console.log("the listing is " + this.state.listing)
             axios.put('http://localhost:3000/api/updateListing', updatedListing)
             .then(response => {      
@@ -126,7 +127,7 @@ class UserProfile extends Component {
                                   //  the states here respectively 
             })
             .catch(error => error); 
-            console.log("the listin id is " + this.state.listing.id)
+            console.log("the listin id is " + this.state.listing.userId)
             console.log("the listing is " + this.state.listing)
         }
     }

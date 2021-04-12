@@ -3,16 +3,41 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { getUser } from "../../actions/authActions";
+import axios from "axios";
+
+
 
 class Dashboard extends Component {
   constructor() {
     super();
+    this.state = {
+      user: []
+    }
   }
 
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
+
+  componentDidMount() { 
+    const { user } = this.props.auth;
+        console.log("the user is " + user.name);
+        axios.get('/api/userprofile', {
+            params : {
+                id: user.id,
+                name: user.name
+            }
+        })
+        .then(res => {
+            this.setState({user: res.data});
+            console.log(this.state.user)
+            console.log(this.state.user.about_me)
+        });
+        console.log("the props are these")
+        console.log(this.props.auth);
+        }
 
 render() {
     const { user } = this.props.auth;
@@ -55,7 +80,7 @@ render() {
             </h4>
             <div style={{textAlign: "center", alignContent: "center"}}>
               <Link
-                  to="/profiles"
+                  to={{pathname: "/profiles", state: {id: this.state.user._id}}}
                   style={{
                     width: "160px",
                     borderRadius: "3px",
@@ -68,7 +93,8 @@ render() {
                   Go to Profiles
                 </Link>
                 <Link
-                  to="/rooms"
+                  to= {{
+                    pathname:'/rooms', state: {id: this.state.user._id}}}
                   style={{
                     width: "160px",
                     borderRadius: "3px",
@@ -90,15 +116,17 @@ render() {
 }
 
 Dashboard.propTypes = {
+  getUser: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
+  //errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, getUser}
 )(Dashboard);
