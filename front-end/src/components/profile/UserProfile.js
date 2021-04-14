@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUser } from "../../actions/authActions";
 import Chip from '@material-ui/core/Chip';
-
+//This file contains the code for the user profile information
 class UserProfile extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +29,7 @@ class UserProfile extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
     }
-
+    //Code to update user profile details
     handleSubmit(e) {
         e.preventDefault();
         console.log(this.state);
@@ -67,7 +67,7 @@ class UserProfile extends Component {
         if (this.state.tags == []) {
             this.state.tags = this.state.user.tags;
         }
-        
+        //log updated profile information
         console.log(this.state.name)
         console.log("the listingName is " + this.state.listingName)
         var updatedUser = {
@@ -84,7 +84,7 @@ class UserProfile extends Component {
             listingRoomMates: this.state.listingRoomMates,
             tags: this.state.tags
         };
-
+        //call to user API
         console.log(updatedUser)
         axios.put('http://localhost:3000/api/user', updatedUser)
             .then(response => { 
@@ -155,7 +155,7 @@ class UserProfile extends Component {
         });
 
     }
-
+    //get current tags
     handleClickAdd(e) {
         e.preventDefault();
         const tags = this.state.tags.slice();
@@ -192,13 +192,13 @@ class UserProfile extends Component {
         console.log("this is the current tags")
         console.log(this.state.tags)
       }
-      
+     //function to delete a profile tag from user profile 
     handleClickDelete(tag) {
         console.log(tag)
         const tags = this.state.tags.filter(t => tag.id !== t.id);
         this.setState({tags: tags});
     }
-    
+    //display user profile
     render() {
         return (
             <div className="container" style={{paddingTop: "30px"}}>

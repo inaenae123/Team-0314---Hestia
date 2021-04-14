@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// Create Schema
+// Create Schema for questionnaire
 const QuestionnaireSchema = new Schema({
   userId: {
     type: String,

@@ -35,7 +35,7 @@ class Room extends Component {
             }
         });
     }
-
+//display listing information
     render() {
         this.state = { open : false };
         this.state = {checked : false};
@@ -209,44 +209,53 @@ class Room extends Component {
         );
     }
 
-
+//open modal when clicking sign leasing agreement
 handleOpen() {
     console.log('handleOpen called');
     this.setState({open : true});
 };
+
 leaveReview() {
     console.log('leavereview called');
     this.setState({review : true});
 }
+//function to change states to ensure that user has checked agree box
 checked() {
-    console.log('chechked called');
+    console.log('checked called');
     this.setState({checked : true});
     this.setState({popup : false});
 }
+//when uncheck check box, change so that can't sign agreement
 unchecked() {
     console.log('unchechked called');
     this.setState({checked : false});
 }
+//open thank you message
 handleOpen2() {
   console.log('handleOpen2 called');
     this.setState({thanks : true});
 };
+//close sign leasing agreement 
 handleClose() {
     console.log('handleClose called');
     this.setState({open : false});
 };
+//close thank you box
 handleClose2() {
     console.log('handleClose2 called');
     this.setState({thanks : false});
 };
+//close dialog box notifying user to check box agreeing to conditoins
 handleClose3() {
     console.log('handleClose3 called');
     this.setState({popup : false});
 };
+//box to close dialog box that lets user leave a review
 handleClose4() {
     console.log('handleClose3 called');
     this.setState({review : false});
 };
+//function that updates user database indicating user has signed leasing agreement
 signAgreement() {
     //if(this.state.checked == true) {
         const { user } = this.props.auth;

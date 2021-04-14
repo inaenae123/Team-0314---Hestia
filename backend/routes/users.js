@@ -9,7 +9,7 @@ const validateLoginInput = require("../validation/login");
 const User = require("../model/User");
 const Listing = require("../model/Listing");
 const Questionnaire = require("../model/Questionnaire");
-
+//gets users information
 router.get("/user", (req, res) => {
   console.log("I received a GET request")
     User.find({},function(err, docs){
@@ -17,14 +17,14 @@ router.get("/user", (req, res) => {
     });
     console.log("Returned data");
 });
-
+//gets listing information
 router.get("/listing", (req, res) => {
   console.log("I received a GET request")
     Listing.find({},function(err, docs){
         res.json(docs);
     });  
 });
-
+//updates lease signed field in database
 router.post("/signLease", async (req, res) => {
   try {
     console.log("the req body is " + req.body.userId)
@@ -36,7 +36,7 @@ router.post("/signLease", async (req, res) => {
     res.status(400).json({ error });
   }
 });
-
+//get questionnaire
 router.get("/questionnaire", (req, res) => {
   console.log("I received a GET request")
     Questionnaire.find({},function(err, docs){
@@ -119,7 +119,7 @@ router.post("/addListing", async (req, res) => {
     }
   }
 });
-
+//add questionniare question
 router.post("/addQuestionnaire", async (req, res) => {
   console.log("I received a Questionaire request")
   const update = {
@@ -168,12 +168,13 @@ router.put("/user", async (req, res) => {
     tags: req.body.tags
 
   });
+  //find user id of user we want to return information of
   let doc = await User.findOneAndUpdate({ "_id": req.body._id }, 
   { "$set": { "name": user.name, "about_me" : user.about_me, "roommates": user.roommates, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates, "tags": user.tags}}, {new: true});
   await doc.save();
 
 });
-
+//save user questionnaire responses in database
 router.put("/questionnaire", async (req, res) => {
   const user = new User({
     userId: req.body.userId,
@@ -184,12 +185,13 @@ router.put("/questionnaire", async (req, res) => {
     answer5: req.body.answer5,
     answer6: req.body.answer6
   });
+  //find user id of user we want to save questionnaire information
   let doc = await Questionnaire.findOneAndUpdate({ "_id" : req.body._id }, 
   { "$set": { "name": user.name, "email": user.email, "phone_number": user.phone_number, "address": user.address, "listingName": user.listingName, "listingLocation": user.listingLocation, "listingOccupancy": user.listingOccupancy, "listingRoomMates": user.listingRoomMates}}, {new: true});
   await doc.save();
 
 });
-
+//updates listing information
 router.put("/updateListing", async (req, res) => {
   const listing = new Listing({
     userId: req.body.userId,

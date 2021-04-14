@@ -24,7 +24,7 @@ class Questionnaire extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+    //update questionnaire
     handleSubmit(e) {
         e.preventDefault();
         alert('Your Questionnaire has been updated');
@@ -54,7 +54,7 @@ class Questionnaire extends Component {
             console.log(updatedQuestionnaire[x])
         }
     }
-
+//display questionnaire
     render() {
         return (
             <div className="container" style={{paddingTop: "30px"}}>

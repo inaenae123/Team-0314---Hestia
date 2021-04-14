@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// Create Schema
+// Create schema for each listing
 const ListingSchema = new Schema({
   userId: {
     type: String,
