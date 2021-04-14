@@ -7,6 +7,7 @@ import classnames from "classnames";
 import axios from "axios";
 import 'semantic-ui-css/semantic.min.css'
 import {Card, Icon} from 'semantic-ui-react'
+import { orange } from "@material-ui/core/colors";
 //import { getUser } from "../../actions/authActions";
 
 
@@ -32,14 +33,14 @@ class Profiles extends Component {
         })
         .then(res => {
             this.setState({users: res.data});
-            console.log(this.state.users)
+            //console.log(this.state.users)
         });
         //Get Qestionaires
         axios.get('/api/questionnaire', {})
         .then(res => {
             this.setState({question: res.data});
             console.log(this.state.question);
-            console.log(this.props.location.state.id);
+            //console.log(this.props.location.state.id);
         })
     }
         
@@ -56,11 +57,35 @@ class Profiles extends Component {
                     {this.state.users.map((userP) => {
                         console.log("matching");
                         console.log(this.state.userId)
-                        console.log(this.state.users._id)
-                        let questionU = this.state.question.find(element => element.userId === this.state.userId);
-                        let questionI = this.state.question.find(element => element.userId === this.state.users._id);
-                        console.log(questionU);
-                        console.log(questionI);
+                        console.log(userP._id)
+                        var qUser = this.state.question.find(element => element.userId === this.state.userId);
+                        var qMatch = this.state.question.find(element => element.userId === userP._id);
+                        var matchColor;
+                        console.log(qUser);
+                        console.log(qMatch);
+                        var matchRate;
+                        if (typeof qMatch !== "undefined" && qMatch !== null) {
+                            matchRate = matchRateCalc(qMatch, qUser);
+                        } else {
+                            matchRate = 0;
+                        }
+                        if (matchRate < 0) {
+                            if (matchRate > - 8) {
+                                matchColor = "orange";
+                            } else {
+                                matchColor = "red";
+                            }
+                        } else if (matchRate > 0) {
+                            if (matchRate < 8) {
+                                matchColor = "yellow";
+                            } else {
+                                matchColor = "green";
+                            }
+                        } else {
+                            matchColor = "grey";
+                        }
+                        console.log(matchColor);
+                        console.log(matchRate);
                         var card = (
                             <Link to="/room" style={{margin: '20px', justifyContent: 'center'}}>
                                 <Card centered
@@ -69,6 +94,8 @@ class Profiles extends Component {
                                     header={userP.name}
                                     description={userP.about_me}
                                     extra = {userP.listing}
+                                    color = {matchColor}
+                                    meta = {(matchRate/16 * 100) + "%"}
                                     />
                             </Link>
                         );
@@ -97,7 +124,7 @@ class Profiles extends Component {
 
 function matchRateCalc(q1, q2) {
     let matchRate = 0;
-    matchRate = (q1.answer1*q2.answer3 + q1.answer2*q2.answer4 + q1.answer1*-q2.answer5 + q1.answer2*-q2.answer6);
+    matchRate = (q1.answer1*q2.answer3 + q1.answer2*q2.answer4 - q1.answer1*q2.answer5 - q1.answer2*q2.answer6);
     return matchRate;
 }
 
