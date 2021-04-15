@@ -36,6 +36,18 @@ router.post("/signLease", async (req, res) => {
     res.status(400).json({ error });
   }
 });
+router.post("/rating", async (req, res) => {
+  try {
+    console.log("the req body is " + req.body.listingID)
+    let listing = await Listing.findOneAndUpdate({ "_id": req.body.listingID }, 
+    { "$inc": {"totalRatingSum": req.body.rating}});
+    let listing2 = await Listing.findOneAndUpdate({ "_id": req.body.listingID }, 
+    { "$inc": {"numRatings": 1}});
+    res.json({error : false})
+  } catch(error) {
+    res.status(400).json({ error });
+  }
+});
 //get questionnaire
 router.get("/questionnaire", (req, res) => {
   console.log("I received a GET request")

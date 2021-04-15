@@ -20,7 +20,23 @@ class Room extends Component {
         super(props);
         this.state = {
             listing: [],
+            open : false,
+            checked : false,
+            thanks: false,
+            popup: false,
+            review: false
         }
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.signAgreement = this.signAgreement.bind(this);
+        this.handleOpen2 = this.handleOpen2.bind(this);
+        this.handleClose2 = this.handleClose2.bind(this);
+        this.handleClose3 = this.handleClose3.bind(this);
+        this.handleClose4 = this.handleClose4.bind(this);
+        this.checked = this.checked.bind(this);
+        this.unchecked = this.unchecked.bind(this);
+        this.leaveReview = this.leaveReview.bind(this);
+        this.handlesubmitReview = this.handlesubmitReview.bind(this);
     }
     
     componentDidMount() {
@@ -36,23 +52,23 @@ class Room extends Component {
         });
     }
 //display listing information
-    render() {
-        this.state = { open : false };
-        this.state = {checked : false};
-        this.state = { thanks : false };
-        this.state = {popup : false};
-        this.state = {review : false};
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.signAgreement = this.signAgreement.bind(this);
-        this.handleOpen2 = this.handleOpen2.bind(this);
-        this.handleClose2 = this.handleClose2.bind(this);
-        this.handleClose3 = this.handleClose3.bind(this);
-        this.handleClose4 = this.handleClose4.bind(this);
-        this.checked = this.checked.bind(this);
-        this.unchecked = this.unchecked.bind(this);
-        this.leaveReview = this.leaveReview.bind(this);
-    }
+    // render() {
+    //     this.state = { open : false };
+    //     this.state = {checked : false};
+    //     this.state = { thanks : false };
+    //     this.state = {popup : false};
+    //     this.state = {review : false};
+    //     this.handleOpen = this.handleOpen.bind(this);
+    //     this.handleClose = this.handleClose.bind(this);
+    //     this.signAgreement = this.signAgreement.bind(this);
+    //     this.handleOpen2 = this.handleOpen2.bind(this);
+    //     this.handleClose2 = this.handleClose2.bind(this);
+    //     this.handleClose3 = this.handleClose3.bind(this);
+    //     this.handleClose4 = this.handleClose4.bind(this);
+    //     this.checked = this.checked.bind(this);
+    //     this.unchecked = this.unchecked.bind(this);
+    //     this.leaveReview = this.leaveReview.bind(this);
+    // }
 
     componentDidMount() { 
         const { user } = this.props.auth;
@@ -82,7 +98,7 @@ class Room extends Component {
                                     <h4>Address:</h4>
                                     <h6>{this.state.listing.location}</h6>
                                 <Box display="flex" flexDirection="column" >
-                                    <h3> Rating : 3/5 (Static rn, need endpoint to get listing totalSum/ numratingCount)</h3>
+                                    <h3> Rating :{this.state.listing.totalRatingSum / this.state.listing.numRatings}</h3>
                                     <Button color="primary" variant="contained" onClick={this.leaveReview}>Leave a Review</Button>
                                 </Box>
                                 <Dialog open={this.state.review} onClose={this.handleClose4}> 
@@ -90,7 +106,10 @@ class Room extends Component {
                                             <h1>
                                                 Leave Review
                                             </h1>
-                                            <TextField id="filled-basic" label="Review out of 5" variant="filled" />
+                                            <TextField id="reviewBox" label="Review out of 5" variant="filled" />
+                                            <Box display="flex" flexDirection="column" >
+                                            <Button color="secondary" variant="contained" onClick={this.handlesubmitReview}>Submit Review</Button>
+                                            </Box>
                                         </Paper>
                                 </Dialog>  
                                 </Grid>
@@ -214,7 +233,19 @@ handleOpen() {
     console.log('handleOpen called');
     this.setState({open : true});
 };
-
+handlesubmitReview() {
+    console.log(document.getElementById('reviewBox').value);
+    console.log(this.props.match.params.id)
+        axios.post('/api/rating', {
+                listingID: this.props.match.params.id,
+                rating: document.getElementById('reviewBox').value
+        })
+        .then(res => {
+            console.log(res);
+        });
+        this.handleClose4();
+        console.log("the props are these")
+}
 leaveReview() {
     console.log('leavereview called');
     this.setState({review : true});
