@@ -90,7 +90,7 @@ class Profiles extends Component {
                         console.log(matchRate);
                         
                         var card = (
-                            <Link to="/room" style={{margin: '20px', justifyContent: 'center'}}>
+                            <Link to={{pathname: `/profile/${userP._id}`}} style={{margin: '20px', justifyContent: 'center'}}>
                                 <Card centered
                                     link
                                     image='https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png'

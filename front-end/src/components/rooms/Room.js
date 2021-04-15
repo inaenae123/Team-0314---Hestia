@@ -70,13 +70,14 @@ class Room extends Component {
     //     this.leaveReview = this.leaveReview.bind(this);
     // }
 
-    componentDidMount() { 
-        const { user } = this.props.auth;
-        console.log(user);
-    }
+    // componentDidMount() { 
+    //     const { user } = this.props.auth;
+    //     console.log(user);
+    // }
     render() {
         //const { user } = this.props;
         console.log(this.props);
+        var rating = this.state.listing.totalRatingSum / this.state.listing.numRatings;
         return (
             <div className="container" style={{paddingTop: "30px"}}>
                 <div className="row" style={{padding: "0px 20%"}}>
@@ -98,7 +99,7 @@ class Room extends Component {
                                     <h4>Address:</h4>
                                     <h6>{this.state.listing.location}</h6>
                                 <Box display="flex" flexDirection="column" >
-                                    <h3> Rating :{this.state.listing.totalRatingSum / this.state.listing.numRatings}</h3>
+                                    <h3> Rating : <div class="ui rating" data-rating={rating} data-max-rating="5"></div></h3>
                                     <Button color="primary" variant="contained" onClick={this.leaveReview}>Leave a Review</Button>
                                 </Box>
                                 <Dialog open={this.state.review} onClose={this.handleClose4}> 
@@ -112,9 +113,6 @@ class Room extends Component {
                                             </Box>
                                         </Paper>
                                 </Dialog>  
-                                </Grid>
-                                <Grid item xs={12} spacing={3}>
-                                    <Paper>Address: 1234 Mainstreet Anywhere USA 10000</Paper>
                                 </Grid>
                                 <Grid item xs={12} spacing={3}>
                                     <h4>Price:</h4>

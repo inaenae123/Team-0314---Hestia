@@ -19,6 +19,7 @@ import Questionnaire from "./components/profile/Questionnaire";
 import Room from "./components/rooms/Room";
 import Profiles from "./components/listings/Profiles";
 import Rooms from "./components/rooms/Rooms";
+import Profile from "./components/listings/Profile";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -59,6 +60,7 @@ class App extends Component {
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/rooms" component={Rooms} />
               <Route path="/room/:id" component={Room} />
+              <Route path="/profile/:id" component={Profile} />
           </Switch>
         </div>
       </Router>
