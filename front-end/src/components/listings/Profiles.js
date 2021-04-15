@@ -8,6 +8,7 @@ import axios from "axios";
 import 'semantic-ui-css/semantic.min.css'
 import {Card, Icon} from 'semantic-ui-react'
 import { orange } from "@material-ui/core/colors";
+import Chip from '@material-ui/core/Chip';
 //import { getUser } from "../../actions/authActions";
 
 
@@ -33,7 +34,7 @@ class Profiles extends Component {
         })
         .then(res => {
             this.setState({users: res.data});
-            //console.log(this.state.users)
+            console.log(this.state.users)
         });
         //Get Qestionaires
         axios.get('/api/questionnaire', {})
@@ -45,6 +46,7 @@ class Profiles extends Component {
     }
         
     render() {
+        console.log(this.state.users);
         return (
             <div className="container" style={{paddingTop: "30px"}}>
                 <div style={{flexDirection: "row", justifyContent: "space-between"}}>
@@ -86,6 +88,7 @@ class Profiles extends Component {
                         }
                         console.log(matchColor);
                         console.log(matchRate);
+                        
                         var card = (
                             <Link to="/room" style={{margin: '20px', justifyContent: 'center'}}>
                                 <Card centered
@@ -93,7 +96,14 @@ class Profiles extends Component {
                                     image='https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png'
                                     header={userP.name}
                                     description={userP.about_me}
-                                    extra = {userP.listing}
+                                    extra = {userP.tags.map((tags) => {
+                                        var chip = (
+                                            <Chip style={{marginRight: '5px'}}
+                                                label = {tags.content}
+                                            />
+                                        );
+                                        return chip
+                                    })}
                                     color = {matchColor}
                                     meta = {(matchRate/16 * 100) + "%"}
                                     />
