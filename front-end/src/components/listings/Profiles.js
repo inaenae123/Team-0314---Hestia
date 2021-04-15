@@ -8,6 +8,9 @@ import axios from "axios";
 import 'semantic-ui-css/semantic.min.css'
 import {Card, Icon} from 'semantic-ui-react'
 import { orange } from "@material-ui/core/colors";
+import Dropdown from 'react-bootstrap/Dropdown';
+import Button from "react-bootstrap/Button";
+
 //import { getUser } from "../../actions/authActions";
 
 
@@ -17,9 +20,41 @@ class Profiles extends Component {
         this.state = {
             users: [],
             userId: this.props.location.state.id,
-            question: []
+            question: [], 
         };
-        this.showMathces = this.showMatches.bind(this);
+        this.showMatches = this.showMatches.bind(this);
+        this.showHighestMatch = this.showHighestMatch.bind(this);
+      }
+
+      compareLowesttMatch(a, b) {
+        if (a.matchRate > b.matchRate) return 1;
+        if (b.matchRate > a.matchRate) return -1;
+        return 0;
+    }
+
+    compareHighestMatch(a, b) {
+        if (a.matchRate < b.matchRate) return 1;
+        if (b.matchRate < a.matchRate) return -1;
+        return 0;
+    }
+
+      showHighestMatch(e) {
+        console.log("in the highest")
+        console.log(e);
+        console.log(this.state.users);
+        let filteredUsers = [...this.state.users];
+        filteredUsers = filteredUsers.sort(this.compareHighestMatch);
+        this.setState({users: filteredUsers});
+        console.log(this.state.users)
+      }
+
+      showLowestMatch(e) {
+        console.log(e);
+        console.log(this.state.users);
+        let filteredUsers = [...this.state.users];
+        filteredUsers = filteredUsers.sort(this.compareLowestMatch);
+        this.setState({users: filteredUsers});
+        console.log(this.state.users)
       }
 
       showMatches(e) {
@@ -53,16 +88,31 @@ class Profiles extends Component {
                     </Link>
                     <h1 style={{textAlign:"center", margin: "0px"}}><strong>User Profiles</strong></h1>
                 </div>
+                <div style={{paddingTop: "10px"}}>
+                        <Dropdown style={{display: "inline", padding: "0px 10px"}}>
+                            <Dropdown.Toggle style={{backgroundColor: "#FFFB9B", color: "black", borderColor: "#FFFB9B"}}>
+                                Sort By
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={this.showHighestMatch}>Highest Matches</Dropdown.Item>
+                                <Dropdown.Item onClick={this.showLowestMatch}>Lowest Matches</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Button variant="light" onClick={this.reset} style={{margin: "0px 10px"}}>
+                            Reset
+                        </Button>
+                    </div>
                 <div className="row" style={{margin: "30px 10px", justifyContent: 'center'}}>
                     {this.state.users.map((userP) => {
                         console.log("matching");
                         console.log(this.state.userId)
                         console.log(userP._id)
+                        console.log("hiiii")
+                        console.log(typeof this.state.users)
+                        console.log(this.state.users)
                         var qUser = this.state.question.find(element => element.userId === this.state.userId);
                         var qMatch = this.state.question.find(element => element.userId === userP._id);
                         var matchColor;
-                        console.log(qUser);
-                        console.log(qMatch);
                         var matchRate;
                         if (typeof qMatch !== "undefined" && qMatch !== null) {
                             matchRate = matchRateCalc(qMatch, qUser);
@@ -84,6 +134,8 @@ class Profiles extends Component {
                         } else {
                             matchColor = "grey";
                         }
+                        userP.matchRate = matchRate;
+                        console.log(userP)
                         console.log(matchColor);
                         console.log(matchRate);
                         var card = (
