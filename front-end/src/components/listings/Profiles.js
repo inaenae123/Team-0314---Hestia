@@ -22,9 +22,14 @@ class Profiles extends Component {
             users: [],
             userId: this.props.location.state.id,
             question: [], 
+            originalArray: []
         };
+        this.compareLowesttMatch = this.compareLowesttMatch.bind(this);
+        this.compareHighestMatch = this.compareHighestMatch.bind(this);
         this.showMatches = this.showMatches.bind(this);
         this.showHighestMatch = this.showHighestMatch.bind(this);
+        this.showLowestMatch = this.showLowestMatch.bind(this);
+        this.reset = this.reset.bind(this);
       }
 
       compareLowesttMatch(a, b) {
@@ -42,26 +47,32 @@ class Profiles extends Component {
       showHighestMatch(e) {
         console.log("in the highest")
         console.log(e);
-        console.log(this.state.users);
+        // console.log(this.state.users);
         let filteredUsers = [...this.state.users];
         filteredUsers = filteredUsers.sort(this.compareHighestMatch);
         this.setState({users: filteredUsers});
-        console.log(this.state.users)
+        // console.log(this.state.users)
       }
 
       showLowestMatch(e) {
         console.log(e);
-        console.log(this.state.users);
+        // console.log(this.state.users);
         let filteredUsers = [...this.state.users];
-        filteredUsers = filteredUsers.sort(this.compareLowestMatch);
+        filteredUsers = filteredUsers.sort(this.compareLowesttMatch);
         this.setState({users: filteredUsers});
-        console.log(this.state.users)
+        // console.log(this.state.users)
       }
 
       showMatches(e) {
         e.preventDefault();
         alert('Here are the matches');
       }
+
+      reset() {
+        let originalArray = [...this.state.originalArray];
+        console.log(originalArray);
+        this.setState({users: originalArray});
+    }
     
       componentDidMount() {
         //Receives listings from api
@@ -69,6 +80,7 @@ class Profiles extends Component {
         })
         .then(res => {
             this.setState({users: res.data});
+            this.setState({originalArray: res.data});
             console.log(this.state.users)
         });
         //Get Qestionaires
